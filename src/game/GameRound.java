@@ -86,7 +86,7 @@ public class GameRound {
 		EnemyTypes.add(new EnemyType("EnemyPlayer",500,1,0,28,"death1.wav", Colours.get(-1,111,540, 543),10,1));
 		EnemyTypes.add(new EnemyType("Auge"       ,700,1,0,26,"death2.wav", Colours.get(-1,413,050, 543),10,1));
 		EnemyTypes.add(new EnemyType("Ghost"      ,1000,1,8,28,"death3.wav", Colours.get(-1,413,050, 543),20,1));
-		EnemyTypes.add(new EnemyType("Swarm"      ,900,2,8,26,"death4.wav", Colours.get(-1,111,222, 121),20,2));
+		EnemyTypes.add(new EnemyType("Flies"      ,900,2,8,26,"death4.wav", Colours.get(-1,111,222, 121),20,2));
 		
 		
 		TowerTypes = new ArrayList<TowerType>();
