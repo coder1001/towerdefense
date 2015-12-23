@@ -53,13 +53,15 @@ public class GameRound {
 	public Level level;
 	private Overlay overlay;
 	private Player player;
+	private int mScale;
 	
 	
 	public ArrayList<TowerType> TowerTypes;// = new ArrayList<TowerTypes>();
 	public ArrayList<EnemyType> EnemyTypes;// = new ArrayList<TowerTypes>();
 	public ArrayList<Enemy> EnemyList;
 	
-	public GameRound(String levelPath, String overlayPath, InputHandler handler){
+	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
+		mScale = scale;
 		gold=500;
 		health=1;
 		wave=1;
@@ -280,7 +282,8 @@ public class GameRound {
       //Wenn einer angeklickt wurde und zurzeit kein tower platziert wird
       if(type != null && towerPlace == null)
       {
-        towerPlace = new Tower(level, x/3-5, y/3-75, type);
+    	
+        towerPlace = new Tower(level, x/mScale-5, y/mScale-75, type);
         towerPlace.SetPlaceMode(true);
         level.addEntity(towerPlace);
         level.SetRenderRaster(true);
@@ -306,7 +309,7 @@ public class GameRound {
 	    //Wenn gerade ein Tower platziert wird, die Position je nach Mausposition anpassen
 	    if(towerPlace != null)
 	    {
-	      towerPlace.SetPosition((point.x/3),(point.y/3)-75);
+	      towerPlace.SetPosition((point.x/mScale),(point.y/mScale)-75);
 	      level.SetMousePosition(point.x,point.y);
 	    }
 	  }

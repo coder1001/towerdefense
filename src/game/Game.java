@@ -96,7 +96,7 @@ public class Game extends Canvas implements Runnable{
 		mouse = new MouseHandler(this);
 		mouseMotion = new MouseMotionHandler(this);
 		
-		gameround = new GameRound("/levels/test_level_2.png","/levels/overlay.png", input);
+		gameround = new GameRound("/levels/test_level_2.png","/levels/overlay.png", input, SCALE);
 		
 	
 	}
