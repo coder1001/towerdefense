@@ -179,7 +179,7 @@ public synchronized void stop() {
 		} 
 		if(gameround.mode==3){			
 			//this.stop();
-			String msg = "Game Over";
+			String msg = "Game Over!!!";
 			int scale=3;
 			FontForGame.render(msg, screen,screen.xOffset+screen.width/2 - (msg.length()*(scale*8/2)),screen.yOffset+screen.height/2, Colours.get(-1,111,333,400), scale);
 			//System.out.println("Game Over");
