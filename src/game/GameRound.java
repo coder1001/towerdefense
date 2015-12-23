@@ -286,6 +286,7 @@ public class GameRound {
         towerPlace = new Tower(level, x/mScale-5, y/mScale-75, type);
         towerPlace.SetPlaceMode(true);
         level.addEntity(towerPlace);
+		
         level.SetRenderRaster(true);
       }//wenn schon ein tower platziert wird, entgültig setzen
       else if(towerPlace != null)
