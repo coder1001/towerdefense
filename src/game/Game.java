@@ -152,7 +152,7 @@ public synchronized void stop() {
 			
 			if(System.currentTimeMillis()-lastTimer > 1000){
 				lastTimer += 1000;
-				System.out.println(ticks+" ticks, "+frames+" frames, "+getHeight()+" H, "+getWidth()+" W");
+				//System.out.println(ticks+" ticks, "+frames+" frames, "+getHeight()+" H, "+getWidth()+" W");
 				frames = 0;
 				ticks = 0;
 			}	

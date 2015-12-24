@@ -9,6 +9,12 @@ import level.tiles.Tile;
 
 public abstract class Mob extends Entity{
 	
+	
+	// Tower Effects
+	public static final int NONE = 0;
+	public static final int FREEZE = 1;
+	public static final int MULTISHOT = 2;
+		
 	protected String name;
 	protected int speed;
 	protected int reward;
@@ -22,6 +28,11 @@ public abstract class Mob extends Entity{
 	protected int TileX = 0;
 	protected int TileY = 28;
 	public Sound sound;
+	
+	public boolean freeze;
+	public int fTime;
+	public long fTimeStart;
+	public long fTimeNow;
 	
 	
 	
@@ -44,11 +55,22 @@ public abstract class Mob extends Entity{
 		this.reward = reward;
 		this.damage = damage;
 		
+		freeze=false;
+		//1 sec freeze-time
+		fTime=1000;
+		
+		
 	}
 	
-	public Boolean DoDamage(Double damage)
+	public Boolean DoDamage(Double damage, int effect)
 	{
 		curlive -= damage;
+		if(effect==FREEZE){
+			System.out.println(freeze);
+			freeze=true;
+			fTimeStart=System.currentTimeMillis();
+		}
+		
 		if(curlive <= 0)
 		{	
 			return true;
@@ -58,12 +80,22 @@ public abstract class Mob extends Entity{
 	}
 	
 	public void move(int xa, int ya){
+		fTimeNow=System.currentTimeMillis();
+		
+		if(fTimeNow-fTimeStart>fTime)
+			freeze=false;
+		
+		
 		if(xa != 0 && ya != 0){
-			move(xa, 0);
-			move(0, ya);
-			numSteps--;
-			return;
+			if(freeze==false){
+				move(xa, 0);
+				move(0, ya);
+				numSteps--;
+				return;
+			} 
 		}
+		
+		
 		numSteps++;
 		if(!hasCollided(xa,ya)){
 			if(ya < 0) movingDir = 0;
@@ -145,6 +177,10 @@ public abstract class Mob extends Entity{
 	
 	public int getSpeed(){
 		return this.speed;
+	}
+	
+	public boolean isFreezed(){
+		return this.freeze;
 	}
 	
 	public void setSpeed(int speed){

@@ -43,7 +43,12 @@ public class Enemy extends Mob{
 		if(input.left.isPressed()) xa--;	
 		if(input.right.isPressed()) xa++; */
 		
-		if(xa != 0 || ya != 0){
+		fTimeNow=System.currentTimeMillis();
+		
+		if(fTimeNow-fTimeStart>fTime)
+			freeze=false;
+		
+		if(xa != 0 || ya != 0 && freeze==false){
 			move(xa,ya);
 			isMoving = true;
 		}else{

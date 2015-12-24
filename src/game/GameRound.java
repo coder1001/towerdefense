@@ -34,6 +34,13 @@ public class GameRound {
 	public static final int WAIT = 1;
 	public static final int WAVE_ON = 2;
 	public static final int GAME_OVER = 3;
+	
+	// Tower Effects
+	public static final int NONE = 0;
+	public static final int FREEZE = 1;
+	public static final int MULTISHOT = 2;
+	
+	
 	public int mode;
 	
 	public int gold;	
@@ -86,7 +93,7 @@ public class GameRound {
 		EnemyTypes.add(new EnemyType("EnemyPlayer",500,1,0,28,"death1.wav", Colours.get(-1,111,540, 543),10,1));
 		EnemyTypes.add(new EnemyType("Auge"       ,700,1,0,26,"death2.wav", Colours.get(-1,413,050, 543),10,1));
 		EnemyTypes.add(new EnemyType("Ghost"      ,1000,1,8,28,"death3.wav", Colours.get(-1,413,050, 543),20,1));
-		EnemyTypes.add(new EnemyType("Flies"      ,900,2,8,26,"death4.wav", Colours.get(-1,111,222, 121),20,2));
+		EnemyTypes.add(new EnemyType("Swarm"      ,900,2,8,26,"death4.wav", Colours.get(-1,111,222, 121),20,2));
 		
 		
 		TowerTypes = new ArrayList<TowerType>();
@@ -94,17 +101,17 @@ public class GameRound {
 		/*
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 1",50,15,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543)) );
-		TowerTypes.add( new TowerType("Multi 1",30,30,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543)) );
-		TowerTypes.add( new TowerType("Ice 1",30,40,400,6,22,"laser1.wav",Colours.get(-1,111,005, 543)) );
+		TowerTypes.add( new TowerType("Laser 1",50,15,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
+		TowerTypes.add( new TowerType("Multi 1",30,30,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
+		TowerTypes.add( new TowerType("Ice 1",30,5,100,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2));
 		
 		
 		/*
 		 *  Overlay Tower Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 2",60,100,1500,0,22,"laser1.wav",Colours.get(-1,111,253, 543)) );
-		TowerTypes.add( new TowerType("Multi 2",50,150,2000,2,22,"laser1.wav",Colours.get(-1,111,225, 533)) );
-		TowerTypes.add( new TowerType("Ice 2",40,200,3000,6,22,"laser1.wav",Colours.get(-1,111,035, 543)) );
+		TowerTypes.add( new TowerType("Laser 2",60,100,1500,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 2));
+		TowerTypes.add( new TowerType("Multi 2",50,150,2000,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 2));
+		TowerTypes.add( new TowerType("Ice 2",40,200,3000,6,22,"laser1.wav",Colours.get(-1,111,035, 543),FREEZE, 2));
 		
 		overlay.AddTowerTypes(TowerTypes);
 		updateOverlay();

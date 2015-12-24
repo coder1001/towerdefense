@@ -15,8 +15,10 @@ public class TowerType {
 	private String mSound;
 	private int mColor;
 	private int mPrice;
+	private int mEffect;
+	private int mReloadTime;
 	
-	public TowerType(String Name, int Range, int Damage,int Price, int SpriteX,int SpriteY, String Sound, int Color)
+	public TowerType(String Name, int Range, int Damage,int Price, int SpriteX,int SpriteY, String Sound, int Color, int effect, int reloadTime)
 	{
 		mName = Name;
 		mRange = Range;
@@ -27,6 +29,8 @@ public class TowerType {
 		mSound = Sound;
 		mColor = Color;
 		mPrice = Price;
+		mEffect = effect;
+		mReloadTime = reloadTime;
 	}
 
 	public void setPosition(int x, int y)
@@ -65,6 +69,14 @@ public class TowerType {
 	}
 	public int getColor() {
 		return mColor;
+	}
+	
+	public int getEffect() {
+		return mEffect;
+	}
+	
+	public int getReloadTime() {
+		return mReloadTime;
 	}
 	
 	public void render(Screen screen, boolean Active) {

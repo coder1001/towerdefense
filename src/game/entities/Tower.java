@@ -7,6 +7,7 @@ import level.Level;
 
 public class Tower extends Entity{
 	
+		
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);
 	Mob lockedEnemy, lockedEnemy2;
@@ -17,6 +18,13 @@ public class Tower extends Entity{
 	public String name;
 	private int[] Sprite;
 	boolean inPlaceMode = false;
+	// for effects like "freeze/stun"
+	int effect;
+	private int reloadTime;
+	private long reloadStart;
+	private long reloadNow;
+	private boolean readyToShot;
+	private boolean drawShot;
 	
 	public Tower(Level level,  int x, int y,TowerType towertype) {
 		super(level);		
@@ -30,8 +38,11 @@ public class Tower extends Entity{
 		sound = new Sound(towertype.getSound());
 		colour = towertype.getColor();
 		price = towertype.getPrice();
-		
+		effect = towertype.getEffect();
+		reloadTime = towertype.getReloadTime()*1000;
 		this.inPlaceMode = false;
+		this.readyToShot=true;
+		this.drawShot=false;
 	}
 
 	public void SetPosition(int x,int y)
@@ -78,13 +89,24 @@ public class Tower extends Entity{
 		//bereits gegner anvisiert ?
 		if(lockedEnemy != null)
 		{
+			reloadNow=System.currentTimeMillis();
+			
+			if(reloadNow-reloadStart>reloadTime)
+				readyToShot=true;
+			if(reloadNow-reloadStart>100)
+				drawShot=false;
+			
 			//found = true;
-			if(IsInRange(lockedEnemy))
+			
+			//Schieße wenn Enemy in Reichweite ist, nicht gefreezed ist und reloadTime vorbei ist
+			if(IsInRange(lockedEnemy) && lockedEnemy.isFreezed()==false && readyToShot==true)
 			{
-				if(lockedEnemy.DoDamage(this.damage))
-				{				
+				if(lockedEnemy.DoDamage(this.damage, effect))
 					lockedEnemy = null;
-				}
+			
+				readyToShot=false;
+				drawShot=true;
+				reloadStart=System.currentTimeMillis();
 			}
 			else
 			{
@@ -101,7 +123,8 @@ public class Tower extends Entity{
 			{			
 				//found = true;
 				//Wenn noch kein Gegner eingeloggt -> Enemy speichern
-				if(lockedEnemy == null && IsInRange(e))
+				Mob temp = (Mob)e;
+				if(lockedEnemy == null && IsInRange(e) && temp.isFreezed() == false)
 				{
 				  //sound.Start();
 									
@@ -135,7 +158,7 @@ public class Tower extends Entity{
 			//found = true;
 			if(IsInRange(lockedEnemy2))
 			{
-				if(lockedEnemy2.DoDamage(this.damage))
+				if(lockedEnemy2.DoDamage(this.damage,effect))
 				{				
 					lockedEnemy2 = null;
 				}
@@ -189,7 +212,7 @@ public class Tower extends Entity{
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
 		
-		if(lockedEnemy != null)
+		if(lockedEnemy != null && drawShot==true)
 		{
 			screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,40);
 		}
