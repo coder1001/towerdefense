@@ -69,7 +69,7 @@ public class GameRound {
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
-		gold=500;
+		gold=5000;
 		health=1;
 		wave=1;
 		minionsLeft=0;

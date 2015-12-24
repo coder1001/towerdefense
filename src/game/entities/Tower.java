@@ -7,7 +7,8 @@ import level.Level;
 
 public class Tower extends Entity{
 	
-		
+	public static final int SHOT_TIME = 1000;
+	
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);
 	Mob lockedEnemy, lockedEnemy2;
@@ -91,9 +92,12 @@ public class Tower extends Entity{
 		{
 			reloadNow=System.currentTimeMillis();
 			
+			//wenn der tower nachgeladen hat ist er wieder bereit zu schießen
 			if(reloadNow-reloadStart>reloadTime)
 				readyToShot=true;
-			if(reloadNow-reloadStart>100)
+			
+			//Dauer des Schusses (Zeichnen)
+			if(reloadNow-reloadStart>SHOT_TIME)
 				drawShot=false;
 			
 			//found = true;
