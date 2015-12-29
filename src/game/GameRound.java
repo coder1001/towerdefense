@@ -101,7 +101,7 @@ public class GameRound {
 		/*
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 1",50,15,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
+		TowerTypes.add( new TowerType("Laser 1",30,15,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
 		TowerTypes.add( new TowerType("Multi 1",30,30,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
 		TowerTypes.add( new TowerType("Ice 1",30,5,100,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2));
 		

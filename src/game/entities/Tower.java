@@ -7,7 +7,6 @@ import level.Level;
 
 public class Tower extends Entity{
 	
-	public static final int SHOT_TIME = 1000;
 	
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);
@@ -27,6 +26,9 @@ public class Tower extends Entity{
 	private boolean readyToShot;
 	private boolean drawShot;
 	
+	private int shotTime;
+	private int shotTimeCount;
+	
 	public Tower(Level level,  int x, int y,TowerType towertype) {
 		super(level);		
 		this.x = x;
@@ -41,6 +43,9 @@ public class Tower extends Entity{
 		price = towertype.getPrice();
 		effect = towertype.getEffect();
 		reloadTime = towertype.getReloadTime()*1000;
+		shotTime = 10;
+		shotTimeCount=0;
+		
 		this.inPlaceMode = false;
 		this.readyToShot=true;
 		this.drawShot=false;
@@ -93,12 +98,11 @@ public class Tower extends Entity{
 			reloadNow=System.currentTimeMillis();
 			
 			//wenn der tower nachgeladen hat ist er wieder bereit zu schießen
-			if(reloadNow-reloadStart>reloadTime)
+			if(reloadNow-reloadStart>reloadTime && readyToShot == false){
 				readyToShot=true;
+				shotTimeCount=0;
+			}
 			
-			//Dauer des Schusses (Zeichnen)
-			if(reloadNow-reloadStart>SHOT_TIME)
-				drawShot=false;
 			
 			//found = true;
 			
@@ -107,10 +111,20 @@ public class Tower extends Entity{
 			{
 				if(lockedEnemy.DoDamage(this.damage, effect))
 					lockedEnemy = null;
-			
-				readyToShot=false;
-				drawShot=true;
-				reloadStart=System.currentTimeMillis();
+				else{
+					shotTimeCount++;
+					System.out.println(shotTimeCount);
+					if(shotTimeCount>=shotTime){
+						System.out.println("now realoading...");
+						readyToShot=false;
+						reloadStart=System.currentTimeMillis();
+						System.out.println("realoaded...");
+				}
+						
+				
+					
+					
+				}
 			}
 			else
 			{
@@ -216,12 +230,12 @@ public class Tower extends Entity{
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
 		
-		if(lockedEnemy != null && drawShot==true)
+		if(lockedEnemy != null && readyToShot == true)
 		{
 			screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,40);
 		}
 		
-		if(lockedEnemy2 != null)
+		if(lockedEnemy2 != null && readyToShot == true)
 		{
 			screen.DrawLine(x+5, y-5, lockedEnemy2.x,lockedEnemy2.y,40);
 		}
