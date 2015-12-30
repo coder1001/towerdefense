@@ -1,5 +1,7 @@
 package game.entities;
 
+import java.util.ArrayList;
+
 import gfx.Colours;
 import gfx.Screen;
 import gfx.Sound;
@@ -7,10 +9,9 @@ import level.Level;
 
 public class Tower extends Entity{
 	
-	
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);
-	Mob lockedEnemy, lockedEnemy2;
+	
 	Sound sound;
 	private int range = 30;
 	private double damage = 20;
@@ -18,16 +19,36 @@ public class Tower extends Entity{
 	public String name;
 	private int[] Sprite;
 	boolean inPlaceMode = false;
-	// for effects like "freeze/stun"
+	
+	
+	/*
+	 *  Wenn ein Gegner Schaden erleidet, wird neben dem Schaden auch der Effekt mitgegeben
+	 *  Für Effekte wie z.B Freeze/Stun
+	 */
 	int effect;
+	
+	/*
+	 *  reloadTime ist die Nachladezeit
+	 *  WENN reloadStart-reloadNow > reloadTime -> Tower kann wieder schießen -> readyToShot = true
+	 */
 	private int reloadTime;
 	private long reloadStart;
 	private long reloadNow;
 	private boolean readyToShot;
-	private boolean drawShot;
 	
+	/*
+	 *  shotTime ist die Anzahl der Ticks, welche ein Turm schießen kann bevor er nachladen muss
+	 *  shotTimeCounter zählt von 0 an bis shotTime hoch
+	 */
 	private int shotTime;
 	private int shotTimeCount;
+	
+	/*
+	 *  Im ARRAY werden alle gelockten Gegner gespeichert
+	 *  Im INT ist die Anzahl der maximal gleichzeitig gelockten Gegner gespeichert
+	 */
+	public ArrayList<Mob> LockedEnemys;
+	private int lockedEnemyNumber;
 	
 	public Tower(Level level,  int x, int y,TowerType towertype) {
 		super(level);		
@@ -42,13 +63,17 @@ public class Tower extends Entity{
 		colour = towertype.getColor();
 		price = towertype.getPrice();
 		effect = towertype.getEffect();
-		reloadTime = towertype.getReloadTime()*1000;
-		shotTime = 10;
-		shotTimeCount=0;
-		
+		reloadTime = towertype.getReloadTime();
+		lockedEnemyNumber=towertype.getLockedEnemys();
+		shotTime = towertype.getShotTime();
 		this.inPlaceMode = false;
 		this.readyToShot=true;
-		this.drawShot=false;
+		LockedEnemys = new ArrayList<Mob>();
+		
+		shotTimeCount=0;
+		
+		
+		
 	}
 
 	public void SetPosition(int x,int y)
@@ -92,136 +117,61 @@ public class Tower extends Entity{
 		//Boolean found = false;
 		
 		
-		//bereits gegner anvisiert ?
-		if(lockedEnemy != null)
-		{
+		//Wenn der Tower noch nicht seine Maximalanzahl an Gegner im Visier hat...
+		if(LockedEnemys.size()<lockedEnemyNumber){
+			for(Entity e : level.entities)
+			{ 
+			    //Es interessieren uns nur die Enemys, die noch nicht im Visier sind und in Reichweite sind
+				if(e.getClass() != game.entities.Tower.class && !LockedEnemys.contains(e) && IsInRange(e))
+				{		
+					  //sound.Start();			
+					  LockedEnemys.add((Mob)e);
+					  if(LockedEnemys.size()==lockedEnemyNumber)
+						  break;
+				}
+			}
+				
+		}
+		//Gehe alle im Visier befindlichen Gegner durch...
+		for(Mob lockedEnemy : LockedEnemys){
+		
 			reloadNow=System.currentTimeMillis();
-			
+					
 			//wenn der tower nachgeladen hat ist er wieder bereit zu schießen
 			if(reloadNow-reloadStart>reloadTime && readyToShot == false){
 				readyToShot=true;
 				shotTimeCount=0;
 			}
 			
-			
-			//found = true;
-			
 			//Schieße wenn Enemy in Reichweite ist, nicht gefreezed ist und reloadTime vorbei ist
-			if(IsInRange(lockedEnemy) && lockedEnemy.isFreezed()==false && readyToShot==true)
+			if(IsInRange(lockedEnemy) && readyToShot==true)
 			{
-				if(lockedEnemy.DoDamage(this.damage, effect))
-					lockedEnemy = null;
+				//true, wenn Gegner nach dem Schaden keine HP mehr hat
+				if(lockedEnemy.DoDamage(this.damage, this.effect)){
+					LockedEnemys.remove(lockedEnemy);
+					break;
+				}
 				else{
 					shotTimeCount++;
-					System.out.println(shotTimeCount);
+					//Wenn der Tower länger als shotTime geschossen hat, muss er nachladen...
 					if(shotTimeCount>=shotTime){
-						System.out.println("now realoading...");
 						readyToShot=false;
 						reloadStart=System.currentTimeMillis();
-						System.out.println("realoaded...");
-				}
-						
-				
-					
-					
-				}
+						}
+					}
 			}
 			else
 			{
-				//sound.Stop();
-				lockedEnemy = null;
-			}
-		}
-		else		
-		//Alle Entitys Durchloopen
-		for(Entity e : level.entities)
-		{ 
-		    //Es interessieren uns nur die Enemys	
-			if(e.getClass() != game.entities.Tower.class && !e.equals(lockedEnemy2))
-			{			
-				//found = true;
-				//Wenn noch kein Gegner eingeloggt -> Enemy speichern
-				Mob temp = (Mob)e;
-				if(lockedEnemy == null && IsInRange(e) && temp.isFreezed() == false)
-				{
-				  //sound.Start();
-									
-				  lockedEnemy = (Mob)e;
-				} //Wenn gespeicherter nicht mehr in range -> löschen
-				/*else if(!IsInRange(lockedEnemy))
-				{
-				  sound.Stop();
-				  lockedEnemy = null;
-				}
-				else
-				{
-					//System.out.println(this.damage);
-					if(lockedEnemy.DoDamage(this.damage))
-					{				
-						lockedEnemy = null;
-					}
-				}*/
-				
-			}
-
-		}
-		//if(!found)
-		//	lockedEnemy=null;
-		
-		if(this.name=="Multi 1" ||
-		   this.name=="Multi 2"	)
-		{
-		if(lockedEnemy2 != null)
-		{
-			//found = true;
-			if(IsInRange(lockedEnemy2))
-			{
-				if(lockedEnemy2.DoDamage(this.damage,effect))
-				{				
-					lockedEnemy2 = null;
+				// Entferne den Gegner, wenn er außerhalb der Reichweite ist
+				if(!IsInRange(lockedEnemy)){
+					LockedEnemys.remove(lockedEnemy);
+					break;		
 				}
 			}
-			else
-			{
-				//sound.Stop();
-				lockedEnemy2 = null;
-			}
-		}
-		else		
-		//Alle Entitys Durchloopen
-		for(Entity e : level.entities)
-		{ 
-		    //Es interessieren uns nur die Enemys	
-			if(e.getClass() != game.entities.Tower.class && !e.equals(lockedEnemy))
-			{			
-				//found = true;
-				//Wenn noch kein Gegner eingeloggt -> Enemy speichern
-				if(lockedEnemy2 == null && IsInRange(e))
-				{
-				  //sound.Start();
-									
-				  lockedEnemy2 = (Mob)e;
-				} //Wenn gespeicherter nicht mehr in range -> löschen
-				/*else if(!IsInRange(lockedEnemy))
-				{
-				  sound.Stop();
-				  lockedEnemy = null;
-				}
-				else
-				{
-					//System.out.println(this.damage);
-					if(lockedEnemy.DoDamage(this.damage))
-					{				
-						lockedEnemy = null;
-					}
-				}*/
-				
-			}
-
-		}
-		}
-	}
-
+		}	
+	}//end tick
+	
+	
 	public void render(Screen screen) {
 		int xTile = Sprite[0];
 		int yTile = Sprite[1];		
@@ -230,15 +180,11 @@ public class Tower extends Entity{
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
 		
-		if(lockedEnemy != null && readyToShot == true)
-		{
-			screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,40);
+		for(Mob lockedEnemy : LockedEnemys){
+			if(readyToShot == true)
+				screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,40);
 		}
 		
-		if(lockedEnemy2 != null && readyToShot == true)
-		{
-			screen.DrawLine(x+5, y-5, lockedEnemy2.x,lockedEnemy2.y,40);
-		}
 		
 		if(this.inPlaceMode)
 			screen.DrawCircle(x+3, y+1, this.range, 215);

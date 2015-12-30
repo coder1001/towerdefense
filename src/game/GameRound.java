@@ -38,7 +38,6 @@ public class GameRound {
 	// Tower Effects
 	public static final int NONE = 0;
 	public static final int FREEZE = 1;
-	public static final int MULTISHOT = 2;
 	
 	
 	public int mode;
@@ -62,6 +61,9 @@ public class GameRound {
 	private Player player;
 	private int mScale;
 	
+	private int lastEnemyHP;
+	private int lastEnemyReward;
+	
 	
 	public ArrayList<TowerType> TowerTypes;// = new ArrayList<TowerTypes>();
 	public ArrayList<EnemyType> EnemyTypes;// = new ArrayList<TowerTypes>();
@@ -69,8 +71,8 @@ public class GameRound {
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
-		gold=5000;
-		health=1;
+		gold=400;
+		health=20;
 		wave=1;
 		minionsLeft=0;
 		minionCounter=0;
@@ -95,23 +97,25 @@ public class GameRound {
 		EnemyTypes.add(new EnemyType("Ghost"      ,1000,1,8,28,"death3.wav", Colours.get(-1,413,050, 543),20,1));
 		EnemyTypes.add(new EnemyType("Swarm"      ,900,2,8,26,"death4.wav", Colours.get(-1,111,222, 121),20,2));
 		
-		
+		lastEnemyHP=EnemyTypes.get(0).getHP();
+		lastEnemyReward=EnemyTypes.get(0).getReward();
 		TowerTypes = new ArrayList<TowerType>();
 		
 		/*
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 1",30,15,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
-		TowerTypes.add( new TowerType("Multi 1",30,30,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 2));
-		TowerTypes.add( new TowerType("Ice 1",30,5,100,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2));
+		TowerTypes.add( new TowerType("Laser 1",50,33,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1));
+		TowerTypes.add( new TowerType("Multi 1",30, 6,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3));
+		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,500,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1));
 		
 		
 		/*
 		 *  Overlay Tower Anzeige : Untere Reihe
-		 */
-		TowerTypes.add( new TowerType("Laser 2",60,100,1500,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 2));
-		TowerTypes.add( new TowerType("Multi 2",50,150,2000,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 2));
-		TowerTypes.add( new TowerType("Ice 2",40,200,3000,6,22,"laser1.wav",Colours.get(-1,111,035, 543),FREEZE, 2));
+		 */								
+		//								Name Range DMG Price
+		TowerTypes.add( new TowerType("Laser 2",60,50,1000,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1));
+		TowerTypes.add( new TowerType("Multi 2",30 ,15,1400,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4));
+		TowerTypes.add( new TowerType("Ice 2"  ,30,40,2000,6,22,"laser1.wav",Colours.get(-1,111,035, 543),FREEZE, 2000,5,2));
 		
 		overlay.AddTowerTypes(TowerTypes);
 		updateOverlay();
@@ -246,16 +250,18 @@ public class GameRound {
 	 */
 	private void createNewWave(){
 		
-		minionsLeft=WAVE_SIZE;
+		minionsLeft=WAVE_SIZE; 
 		EnemyType newEnemyType = EnemyTypes.get((wave-1)%EnemyTypes.size());
-		
 		newEnemyType.setColor(Colours.get(-1,rn.nextInt(556),rn.nextInt(556), rn.nextInt(556)));
 		EnemyList.clear();
+		
 		for(int i=0;i<WAVE_SIZE;i++){
 			EnemyList.add(new Enemy(level,-20,20,newEnemyType));
-			EnemyList.get(i).setMaxLive((int)(EnemyList.get(i).maxlive+(EnemyList.get(i).maxlive*wave*0.1)));
-			EnemyList.get(i).setReward((int)(EnemyList.get(i).getReward()+(EnemyList.get(i).getReward()*wave*0.05)));
+			EnemyList.get(i).setMaxLive((int)(lastEnemyHP*1.15));
+			EnemyList.get(i).setReward((int)(lastEnemyReward+1));
 		}
+		lastEnemyHP = EnemyList.get(0).maxlive;
+		lastEnemyReward = EnemyList.get(0).getReward();
 	}
 	
 	

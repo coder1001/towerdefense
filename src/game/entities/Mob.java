@@ -34,6 +34,9 @@ public abstract class Mob extends Entity{
 	public long fTimeStart;
 	public long fTimeNow;
 	
+	//true if a tower is already
+	private boolean locked;
+	
 	
 	
 	
@@ -66,7 +69,7 @@ public abstract class Mob extends Entity{
 	{
 		curlive -= damage;
 		if(effect==FREEZE){
-			System.out.println(freeze);
+			//System.out.println(freeze);
 			freeze=true;
 			fTimeStart=System.currentTimeMillis();
 		}
@@ -82,11 +85,14 @@ public abstract class Mob extends Entity{
 	public void move(int xa, int ya){
 		fTimeNow=System.currentTimeMillis();
 		
+		//ist der Mob länger als fTime gefreezed, dann setze freeze wieder auf falsch
 		if(fTimeNow-fTimeStart>fTime)
 			freeze=false;
 		
 		
 		if(xa != 0 && ya != 0){
+			
+			//wenn der Mob nicht gefreezed ist, bewegt er sich
 			if(freeze==false){
 				move(xa, 0);
 				move(0, ya);
