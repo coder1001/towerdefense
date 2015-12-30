@@ -71,7 +71,7 @@ public class GameRound {
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
-		gold=400;
+		gold=4000;
 		health=20;
 		wave=1;
 		minionsLeft=0;
@@ -105,17 +105,17 @@ public class GameRound {
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
 		TowerTypes.add( new TowerType("Laser 1",50,33,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1));
-		TowerTypes.add( new TowerType("Multi 1",30, 6,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3));
-		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,500,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1));
+		TowerTypes.add( new TowerType("Multi 1",30, 8,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3));
+		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,300,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1));
 		
 		
 		/*
 		 *  Overlay Tower Anzeige : Untere Reihe
 		 */								
 		//								Name Range DMG Price
-		TowerTypes.add( new TowerType("Laser 2",60,50,1000,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1));
-		TowerTypes.add( new TowerType("Multi 2",30 ,15,1400,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4));
-		TowerTypes.add( new TowerType("Ice 2"  ,30,40,2000,6,22,"laser1.wav",Colours.get(-1,111,035, 543),FREEZE, 2000,5,2));
+		TowerTypes.add( new TowerType("Laser 2",60,70,1000,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1));
+		TowerTypes.add( new TowerType("Multi 2",30 ,20,1400,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4));
+		TowerTypes.add( new TowerType("Ice 2"  ,30,60,1500,8,22,"laser1.wav",Colours.get(-1,111,005, 035),FREEZE, 2000,5,2));
 		
 		overlay.AddTowerTypes(TowerTypes);
 		updateOverlay();

@@ -121,13 +121,17 @@ public class Tower extends Entity{
 		if(LockedEnemys.size()<lockedEnemyNumber){
 			for(Entity e : level.entities)
 			{ 
+				
 			    //Es interessieren uns nur die Enemys, die noch nicht im Visier sind und in Reichweite sind
 				if(e.getClass() != game.entities.Tower.class && !LockedEnemys.contains(e) && IsInRange(e))
 				{		
-					  //sound.Start();			
-					  LockedEnemys.add((Mob)e);
-					  if(LockedEnemys.size()==lockedEnemyNumber)
-						  break;
+					  //sound.Start();
+					Mob tempo = (Mob) e;
+					if(!(this.effect==1 && tempo.isFreezed()==true)){
+						LockedEnemys.add((Mob)e);
+						if(LockedEnemys.size()==lockedEnemyNumber)
+							break;
+					}
 				}
 			}
 				
@@ -136,7 +140,6 @@ public class Tower extends Entity{
 		for(Mob lockedEnemy : LockedEnemys){
 		
 			reloadNow=System.currentTimeMillis();
-					
 			//wenn der tower nachgeladen hat ist er wieder bereit zu schießen
 			if(reloadNow-reloadStart>reloadTime && readyToShot == false){
 				readyToShot=true;
