@@ -15,13 +15,16 @@ import gfx.Screen;
 import level.Level;
 import level.Overlay;
 
-/*
+/**
  * In der Klasse GameRound werden alle Informationen über die aktuelle Spielgrunde festgehalten.
  * -> Der Aktuelle Goldstand
  * -> Das aktuelle Leben
  * -> Die aktuelle Welle
  * 
  * Jede Welle besteht aus 10 Enemys des gleichen Typs. Die Enemys jeder Welle werden immer stärker
+ * 
+ * @author Marko Susic
+ * @version 1.0
  */
 public class GameRound {
 
@@ -130,9 +133,11 @@ public class GameRound {
 	
 	
 	
-	
-	
-	
+	/**
+	 * Aktualisiert die Gameround
+	 * 
+	 * @author Marko Susic
+	 */
 	public void tick(){
 		
 		if(bnew == false)
@@ -174,11 +179,13 @@ public class GameRound {
 		
 	}
 	
-	/*
+	/**
 	 * 	Aktualisiert das Overlay
 	 * 		-> Gold
 	 * 		-> Leben
 	 * 		-> Aktuelle Welle
+	 * 
+	 *  @author Marko Susic
 	 */
 	public void updateOverlay(){
 		
@@ -192,8 +199,10 @@ public class GameRound {
 		return level.width;
 	}
 	
-	/*
-	 *  Zeichnet oben das Overlay und unten das Level
+	/**
+	 * Zeichnet oben das Overlay und unten das Level
+	 * 
+	 * @author Marko Susic
 	 */
 	public void renderTiles(Screen screen){
 		int xOffset = player.x-(screen.width/2);
@@ -203,14 +212,21 @@ public class GameRound {
 		
 	}
 	
-	/*
-	 *  Zeichnet alle Enemy und Tower
+	/**
+	 * Zeichnet alle Enemys und Tower
+	 * 
+	 * @author Marko Susic
 	 */
 	public void renderEntities(Screen screen){
 		level.renderEntities(screen);
 	}
 	
-	
+	/**
+	 * Überprüft ob noch Monster einer Welle übrig sind
+	 * 
+	 * @author Marko Susic
+	 * @return true, falls noch Gegner übrig sind,false wenn keine Gegner mehr übrig sind
+	 */
 	public boolean enemyLeft(){
 		if(minionsLeft == 0)
 			return false;
@@ -218,18 +234,22 @@ public class GameRound {
 			return true;
 	}
 	
-	/*
-	 * Wenn ein Enemy stirbt oder das Ziel erreicht, wird minonsLeft um eins verringert
+	/**
+	 * Wenn in einer Welle ein Gegner besiegt wird oder das Ziel erreicht, wird die Variable, welche die Anzahl
+	 * der noch lebenden Gegner enthält um eins reduziert
+	 * 
+	 * @author Marko Susic
 	 */
 	public void reduceEnemy(){
 		if(minionsLeft>0)
-			minionsLeft--;
-		
+			minionsLeft--;	
 	}
 	
-	/*
-	 * Wenn ein Enemy stirbt oder das Ziel erreicht, wird das Leben um den DAMAGE des Monsters verringert.
-	 * Wenn das Leben auf <= 0 fällt, wird mode auf GAME_OVER gesetzt
+	/**
+	 * Wenn ein Gegner das Ziel erreicht, wird das Leben um den Schadenswert des Monsters verringert.
+	 * Wenn das Leben des Spielersauf <= 0 fällt, wird mode auf GAME_OVER gesetzt
+	 * 
+	 * @author Marko Susic
 	 */
 	public void reduceLife(int damage){
 		
@@ -244,12 +264,13 @@ public class GameRound {
 	
 }
 	
-	
-	/*
+	/**
 	 * Erstellt eine neue Welle von Enemy
 	 * 1. Setze minionsLeft zurück auf die Wave Size
 	 * 2. Lösche alle Enemy aus der EnemyList
 	 * 3. Füge einen neuen Gegnertyp x-Mal in die Liste
+	 * 
+	 * @author Marko Susic
 	 */
 	private void createNewWave(){
 		
