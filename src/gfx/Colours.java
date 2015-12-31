@@ -13,5 +13,13 @@ public class Colours {
 		int b = colour%10;
 		return r*36 + g*6 +b;
 	}
+	
+	public static int getc(int colour) {
+		if (colour<0) return 255;
+		int r = colour/100%10;
+		int g = colour/10%10;
+		int b = colour%10;
+		return r*36 + g*6 +b;
+	}
 
 }

@@ -40,6 +40,9 @@ public class GameRound {
 	public static final int FREEZE = 1;
 	
 	
+	
+	
+	
 	public int mode;
 	
 	public int gold;	
@@ -104,18 +107,18 @@ public class GameRound {
 		/*
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 1",50,33,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1));
-		TowerTypes.add( new TowerType("Multi 1",30, 8,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3));
-		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,300,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1));
+		TowerTypes.add( new TowerType("Laser 1",50,33,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1,Colours.getc(400)));
+		TowerTypes.add( new TowerType("Multi 1",30, 8,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3,Colours.getc(405)));
+		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,300,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1,Colours.getc(005)));
 		
 		
 		/*
 		 *  Overlay Tower Anzeige : Untere Reihe
 		 */								
 		//								Name Range DMG Price
-		TowerTypes.add( new TowerType("Laser 2",60,70,1000,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1));
-		TowerTypes.add( new TowerType("Multi 2",30 ,20,1400,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4));
-		TowerTypes.add( new TowerType("Ice 2"  ,30,60,1500,8,22,"laser1.wav",Colours.get(-1,111,005, 035),FREEZE, 2000,5,2));
+		TowerTypes.add( new TowerType("Laser 2",60,70,1000,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1,Colours.getc(400)));
+		TowerTypes.add( new TowerType("Multi 2",30 ,20,1400,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4,Colours.getc(405)));
+		TowerTypes.add( new TowerType("Ice 2"  ,30,60,1500,8,22,"laser1.wav",Colours.get(-1,111,005, 035),FREEZE, 2000,5,2,Colours.getc(005)));
 		
 		overlay.AddTowerTypes(TowerTypes);
 		updateOverlay();

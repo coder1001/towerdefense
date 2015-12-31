@@ -137,7 +137,7 @@ public class Level {
 		if(rem != null)
 		{
 			Mob temp = (Mob)rem;
-			temp.sound.Start();
+			//temp.sound.Start();
 			//temp.sound.Stop();
 			entities.remove(rem);
 		}

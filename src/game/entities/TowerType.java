@@ -19,8 +19,9 @@ public class TowerType {
 	private int mReloadTime;
 	private int mLockedEnemys;
 	private int mShotTime;
+	private int mLaserColor;
 	
-	public TowerType(String Name, int Range, int Damage,int Price, int SpriteX,int SpriteY, String Sound, int Color, int effect, int reloadTime, int shotTime, int lockedEnemys)
+	public TowerType(String Name, int Range, int Damage,int Price, int SpriteX,int SpriteY, String Sound, int Color, int effect, int reloadTime, int shotTime, int lockedEnemys, int laserColor)
 	{
 		mName = Name;
 		mRange = Range;
@@ -35,6 +36,7 @@ public class TowerType {
 		mReloadTime = reloadTime;
 		mLockedEnemys = lockedEnemys;
 		mShotTime = shotTime;
+		mLaserColor = laserColor;
 	}
 
 	public void setPosition(int x, int y)
@@ -89,6 +91,10 @@ public class TowerType {
 	
 	public int getShotTime() {
 		return mShotTime;
+	}
+	
+	public int getLaserColor() {
+		return mLaserColor;
 	}
 	
 	public void render(Screen screen, boolean Active) {

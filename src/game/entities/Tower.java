@@ -19,6 +19,7 @@ public class Tower extends Entity{
 	public String name;
 	private int[] Sprite;
 	boolean inPlaceMode = false;
+	private int laserColor;
 	
 	
 	/*
@@ -50,6 +51,7 @@ public class Tower extends Entity{
 	public ArrayList<Mob> LockedEnemys;
 	private int lockedEnemyNumber;
 	
+	
 	public Tower(Level level,  int x, int y,TowerType towertype) {
 		super(level);		
 		this.x = x;
@@ -68,7 +70,9 @@ public class Tower extends Entity{
 		shotTime = towertype.getShotTime();
 		this.inPlaceMode = false;
 		this.readyToShot=true;
+		this.laserColor=towertype.getLaserColor();
 		LockedEnemys = new ArrayList<Mob>();
+		
 		
 		shotTimeCount=0;
 		
@@ -185,7 +189,7 @@ public class Tower extends Entity{
 		
 		for(Mob lockedEnemy : LockedEnemys){
 			if(readyToShot == true)
-				screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,40);
+				screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,this.laserColor);
 		}
 		
 		
