@@ -225,7 +225,7 @@ public class Level {
 				{	
 					
 					//System.out.println("x: "+(y<<3)+"("+((mousey/3)+60)+")");
-					if(Math.abs((x<<3)-(mousex/3)) <= 3 && Math.abs((y<<3)-((mousey/3))+80) <= 3)
+					if(Math.abs((x<<3)-((mousex/3))) <= 3 && Math.abs((y<<3)-((mousey/3))+80) <= 3)
 					{
 						
 						

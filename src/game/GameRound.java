@@ -299,7 +299,7 @@ public class GameRound {
       if(type != null && towerPlace == null)
       {
     	
-        towerPlace = new Tower(level, x/mScale-5, y/mScale-75, type);
+        towerPlace = new Tower(level, x/mScale-5, y/mScale-80, type);
         towerPlace.SetPlaceMode(true);
         level.addEntity(towerPlace);
 		
@@ -326,7 +326,7 @@ public class GameRound {
 	    //Wenn gerade ein Tower platziert wird, die Position je nach Mausposition anpassen
 	    if(towerPlace != null)
 	    {
-	      towerPlace.SetPosition((point.x/mScale),(point.y/mScale)-75);
+	      towerPlace.SetPosition((point.x/mScale-5),(point.y/mScale)-80);
 	      level.SetMousePosition(point.x,point.y);
 	    }
 	  }
