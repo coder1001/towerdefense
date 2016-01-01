@@ -131,6 +131,8 @@ public class Tower extends Entity{
 				{		
 					  //sound.Start();
 					Mob tempo = (Mob) e;
+					//Wenn der Tower den Freeze-Effekt hat und der Gegne bereits eingefroren ist,
+					//wird der Gegner nicht ins Vesier genommen
 					if(!(this.effect==1 && tempo.isFreezed()==true)){
 						LockedEnemys.add((Mob)e);
 						if(LockedEnemys.size()==lockedEnemyNumber)
