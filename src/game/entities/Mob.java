@@ -83,22 +83,18 @@ public abstract class Mob extends Entity{
 	}
 	
 	public void move(int xa, int ya){
-		fTimeNow=System.currentTimeMillis();
 		
+		fTimeNow=System.currentTimeMillis();
 		//ist der Mob länger als fTime gefreezed, dann setze freeze wieder auf falsch
 		if(fTimeNow-fTimeStart>fTime)
 			freeze=false;
 		
 		
 		if(xa != 0 && ya != 0){
-			
-			//wenn der Mob nicht gefreezed ist, bewegt er sich
-			if(freeze==false){
 				move(xa, 0);
 				move(0, ya);
 				numSteps--;
 				return;
-			} 
 		}
 		
 		

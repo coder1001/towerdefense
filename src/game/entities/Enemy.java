@@ -155,61 +155,73 @@ public class Enemy extends Mob{
 	
 	
 	public void move(int xa, int ya){
-		if(xa != 0 && ya != 0){
-			move(xa, 0);
-			move(0, ya);
-			numSteps--;
-			return;
-		}
-		numSteps++;
+		
+		fTimeNow=System.currentTimeMillis();
+		
+		//ist der Mob länger als fTime gefreezed, dann setze freeze wieder auf falsch
+		if(fTimeNow-fTimeStart>fTime)
+			freeze=false;
 		
 		
-		
-		if(!NotOnRoad(xa,ya)){
-			if(ya < 0) movingDir = 0; // oben
-			if(ya > 0) movingDir = 1; // unten
-			if(xa < 0) movingDir = 2; // links	
-			if(xa > 0) movingDir = 3; // rechts
+		if(freeze==false){
 			
-			x += xa * speed;
-			y += ya * speed;
-		}
-		
-		if(NotOnRoad(xa,ya)==true){
+			if(xa != 0 && ya != 0){
+				move(xa, 0);
+				move(0, ya);
+				numSteps--;
+				return;
+			}
+			numSteps++;
 			
-			//wenn du nach oben
-			if(movingDir==0)
-			{
-				if(!NotOnRoad(xa-16,ya+2))
-					movingDir=2;
-				else
-					movingDir=3;
+			
+			
+			if(!NotOnRoad(xa,ya)){
+				if(ya < 0) movingDir = 0; // oben
+				if(ya > 0) movingDir = 1; // unten
+				if(xa < 0) movingDir = 2; // links	
+				if(xa > 0) movingDir = 3; // rechts
+				
+				x += xa * speed;
+				y += ya * speed;
 			}
-			else if(movingDir==1)//unten
-			{
-				if(!NotOnRoad(xa-16,ya-2))
-					movingDir=2;
-				else
-					movingDir=3;
-			}
-			else if(movingDir==2)//links
-			{
-				if(!NotOnRoad(xa+2,ya-16))
-					movingDir=0;
-				else
-					movingDir=1;
-			}	
-			else //rechts
-			{
-				if(!NotOnRoad(xa-2,ya-16))
-					movingDir=0;
-				else
-					movingDir=1;
-			}
-		} 
-		
-		if(hitTheEnd(xa, ya)==true)
-			reachedEnd = true;
+			
+			if(NotOnRoad(xa,ya)==true){
+				
+				//wenn du nach oben
+				if(movingDir==0)
+				{
+					if(!NotOnRoad(xa-16,ya+2))
+						movingDir=2;
+					else
+						movingDir=3;
+				}
+				else if(movingDir==1)//unten
+				{
+					if(!NotOnRoad(xa-16,ya-2))
+						movingDir=2;
+					else
+						movingDir=3;
+				}
+				else if(movingDir==2)//links
+				{
+					if(!NotOnRoad(xa+2,ya-16))
+						movingDir=0;
+					else
+						movingDir=1;
+				}	
+				else //rechts
+				{
+					if(!NotOnRoad(xa-2,ya-16))
+						movingDir=0;
+					else
+						movingDir=1;
+				}
+			} 
+			
+			if(hitTheEnd(xa, ya)==true)
+				reachedEnd = true;
+		}
+	
 	}
 	
 	
