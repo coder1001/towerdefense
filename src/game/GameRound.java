@@ -17,11 +17,6 @@ import level.Overlay;
 
 /**
  * In der Klasse GameRound werden alle Informationen über die aktuelle Spielgrunde festgehalten.
- * -> Der Aktuelle Goldstand
- * -> Das aktuelle Leben
- * -> Die aktuelle Welle
- * 
- * Jede Welle besteht aus 10 Enemys des gleichen Typs. Die Enemys jeder Welle werden immer stärker
  * 
  * @author Marko Susic
  * @version 1.0
@@ -87,7 +82,7 @@ public class GameRound {
 		level = new Level(levelPath, this);
 		overlay = new Overlay(overlayPath);
 		player = new Player(level, 8,8,handler);
-		level.addEntity(player);
+		//level.addEntity(player);
 		rn = new Random();
 		EnemyList = new ArrayList<Enemy>();
 		

@@ -1,11 +1,6 @@
 package game;
 
-import game.entities.Enemy;
-import game.entities.EnemyType;
-import game.entities.Entity;
-import game.entities.Player;
-import game.entities.Tower;
-import game.entities.TowerType;
+
 import gfx.Colours;
 import gfx.FontForGame;
 import gfx.Screen;
@@ -13,22 +8,25 @@ import gfx.SpriteSheet;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.Font;
+
 import java.awt.Graphics;
-import java.awt.List;
+
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
+
 
 
 import javax.swing.JFrame;
 
-import level.Level;
-import level.Overlay;
-
+/**
+ * In der Klasse Game wird das Fenster erzeugt. Hier befindet sich die Hauptschleife des Spiels
+ * 
+ * @author Marko Susic
+ * @version 1.0
+*/
 public class Game extends Canvas implements Runnable{
 
 	
@@ -37,7 +35,7 @@ public class Game extends Canvas implements Runnable{
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = WIDTH /20*15;
 	public static final int SCALE = 3;
-	public static final String NAME="Game";
+	public static final String NAME="Java Tower Defense 1 (JTD)";
 	
 	private JFrame frame;
 	
@@ -57,8 +55,13 @@ public class Game extends Canvas implements Runnable{
 	public GameRound gameround;
 	
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
 	public Game(){
-		
 		
 		setMinimumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		setMaximumSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
@@ -100,20 +103,40 @@ public class Game extends Canvas implements Runnable{
 		
 	
 	}
-	
+	/**
+	 * Startet das Spiel-> Startet einen Thread. Ab hier läuft die run-Methode des Threads
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
 	public synchronized void start() {
 		running = true;
 		new Thread(this).start();
 		
 	}
-	
-public synchronized void stop() {
+	/**
+	 * Beendet das Spiel
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
+	public synchronized void stop() {
 		running = false;
 	}
-	
+	/**
+	 * Hauptschleife des Spiels, hier werden alle 
+	 * ticks() - Updaten der Variablen / Spielmechanik
+	 * und
+	 * render() - Neuzeichnen des Bildschirms
+	 * Methoden aufgerufen
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
 	public void run() {
 		
 		long lastTime = System.nanoTime();
+		// Gibt die FPS an (ticks)
 		double nsPerTick = 1000000000D/30D;
 		
 		int frames = 0;
@@ -128,7 +151,7 @@ public synchronized void stop() {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; //wenn false, limitierung auf 60 fps
+			boolean shouldRender = true; //wenn false, limitierung auf "ticks"
 			
 			
 			while(delta >= 1){
@@ -152,14 +175,19 @@ public synchronized void stop() {
 			
 			if(System.currentTimeMillis()-lastTimer > 1000){
 				lastTimer += 1000;
-				//System.out.println(ticks+" ticks, "+frames+" frames, "+getHeight()+" H, "+getWidth()+" W");
+				System.out.println(ticks+" ticks, "+frames+" frames, "+getHeight()+" H, "+getWidth()+" W");
 				frames = 0;
 				ticks = 0;
 			}	
 		}
 		
 	}
-	
+	/**
+	 * Beinhaltet die Spielelogik. Updatet Tower, Enemys, Schüsse
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
 	public void tick(){
 		
 		if(gameround.mode==3){			
@@ -170,20 +198,26 @@ public synchronized void stop() {
 		}
 	}
 	
-	
+	/**
+	 * Neuzeichnen des Bildschirms. Durch die BufferStrategy wird das Bild weicher gezichnet.
+	 * Es entsteht kein Flimmern
+	 * 
+	 * @author Marko Susic
+	 * @version 1.0
+	*/
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null){
 			createBufferStrategy(3);
 			return;
 		} 
+		
+		//Wenn der Spieler alle Leben verlorgen hat, schaltet gamround den mode auf 3 (Game Over)
 		if(gameround.mode==3){			
-			//this.stop();
 			String msg = "Game Over!!!";
 			int scale=3;
 			FontForGame.render(msg, screen,screen.xOffset+screen.width/2 - (msg.length()*(scale*8/2)),screen.yOffset+screen.height/2, Colours.get(-1,111,333,400), scale);
-			//System.out.println("Game Over");
-			
+		// Wenn noch Leben vorhanden ist, wird alles neugezeichnet	
 		}else{
 			gameround.renderTiles(screen);
 			gameround.renderEntities(screen);
@@ -194,22 +228,16 @@ public synchronized void stop() {
 				int colourCode = screen.pixels[x+y * screen.width];
 				if(colourCode < 255) pixels[x + y * WIDTH] = colours[colourCode];
 			}
-		}
-
-			
+		}	
 		Graphics g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
 		g.dispose();
 		bs.show();
 	}
-	
+
 	public static void main(String[] args){
 		new Game().start();
 	}
-
-
-
-	
 
 }
