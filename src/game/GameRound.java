@@ -14,6 +14,7 @@ import gfx.Colours;
 import gfx.Screen;
 import level.Level;
 import level.Overlay;
+import level.tiles.Tile;
 
 /**
  * In der Klasse GameRound werden alle Informationen über die aktuelle Spielgrunde festgehalten.
@@ -72,7 +73,7 @@ public class GameRound {
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
-		gold=500;
+		gold=5000;
 		health=20;
 		wave=1;
 		minionsLeft=0;
@@ -105,8 +106,8 @@ public class GameRound {
 		/*
 		 *  Overlay Tower-Anzeige : Untere Reihe
 		 */
-		TowerTypes.add( new TowerType("Laser 1",50,40,200,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1,Colours.getc(400)));
-		TowerTypes.add( new TowerType("Multi 1",30, 8,300,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3,Colours.getc(405)));
+		TowerTypes.add( new TowerType("Laser 1",50,40,200,4,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1000,10,1,Colours.getc(400)));
+		TowerTypes.add( new TowerType("Multi 1",30, 8,300,0,22,"laser1.wav",Colours.get(-1,111,500, 543),NONE, 1,100,3,Colours.getc(405)));
 		TowerTypes.add( new TowerType("Ice 1"  ,30, 30,300,6,22,"laser1.wav",Colours.get(-1,111,005, 543),FREEZE, 2000,5,1,Colours.getc(005)));
 		
 		
@@ -114,8 +115,8 @@ public class GameRound {
 		 *  Overlay Tower Anzeige : Untere Reihe
 		 */								
 		//								Name Range DMG Price
-		TowerTypes.add( new TowerType("Laser 2",65,50,450,0,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1,Colours.getc(400)));
-		TowerTypes.add( new TowerType("Multi 2",35,20,600,2,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4,Colours.getc(405)));
+		TowerTypes.add( new TowerType("Laser 2",65,50,450,2,22,"laser1.wav",Colours.get(-1,111,253, 543),NONE, 300,10,1,Colours.getc(400)));
+		TowerTypes.add( new TowerType("Multi 2",35,20,600,0,22,"laser1.wav",Colours.get(-1,111,225, 533),NONE, 1,100,4,Colours.getc(405)));
 		TowerTypes.add( new TowerType("Ice 2"  ,35,100,650,8,22,"laser1.wav",Colours.get(-1,111,005, 035),FREEZE, 1500,5,2,Colours.getc(005)));
 		
 		overlay.AddTowerTypes(TowerTypes);
@@ -293,50 +294,69 @@ public class GameRound {
 	   */
 	public void OnMouseClick(MouseEvent e)
     {
-    System.out.println(e.getButton());
-      //level.TileClicked(x, y);
-      //Schauen ob oben einer der Towertypen angeklickt wurde
-    int x = e.getX();
-    int y = e.getY();
-      TowerType type = overlay.TowerTypeClicked(x,y);
-      
-      //Mit rechtsklick bauen abbrechen und tower löschen
-      if(e.getButton() == 3)
-      {
-        if(towerPlace != null)
-        {
-          level.removeEntity(towerPlace);
-          towerPlace = null;
-          level.SetRenderRaster(false);
-        }        
-      }
-      
-      //Wenn einer angeklickt wurde und zurzeit kein tower platziert wird
-      if(type != null && towerPlace == null)
-      {
-    	
-        towerPlace = new Tower(level, x/mScale-5, y/mScale-80, type);
-        towerPlace.SetPlaceMode(true);
-        level.addEntity(towerPlace);
+		System.out.println(e.getButton());
+		//level.TileClicked(x, y);
 		
-        level.SetRenderRaster(true);
-      }//wenn schon ein tower platziert wird, entgültig setzen
-      else if(towerPlace != null)
-      {
-        Point tilepos = level.TileClicked(x, y);
-        if(tilepos != null)
-        {
-          towerPlace.SetPosition(tilepos.x+5, tilepos.y+5);
-          towerPlace.SetPlaceMode(false);
-          //überprüfen ob wiese
-          level.SetRenderRaster(false);
-          this.gold -= towerPlace.GetPrice();
-          this.updateOverlay();
-          towerPlace = null;    
-        }
-      }
+		//Schauen ob oben einer der Towertypen aus der oberen Zeile angeklickt wurde
+		int x = e.getX();
+		int y = e.getY();
+		TowerType type = overlay.TowerTypeClicked(x,y);
+      
+		//Mit rechtsklick bauen abbrechen und tower löschen
+		if(e.getButton() == 3)
+		{
+			if(towerPlace != null)
+	        {
+	          level.removeEntity(towerPlace);
+	          towerPlace = null;
+	          level.SetRenderRaster(false);
+	        }        
+	    }
+	      
+		//Wenn ein towertype ausgewählt wurde und zurzeit kein tower platziert wird
+		if(type != null && towerPlace == null)
+		{    	
+			towerPlace = new Tower(level, x/mScale-5, y/mScale-80, type);
+			towerPlace.SetPlaceMode(true);
+			level.addEntity(towerPlace);
+		
+			level.SetRenderRaster(true);
+		}//wenn schon ein tower platziert wird, entgültig setzen
+		else if(towerPlace != null)
+		{			
+			Point tilepos = level.TileClicked(x, y);
+			//System.out.println("test bei: "+(tilepos.x+5));
+			
+			if(tilepos != null)
+			{
+				
+				//testen ob noch platz frei ist
+				if(level.getTower(tilepos.x+5, tilepos.y+5,0) != null //genau auf der stelle
+						|| level.getTower(tilepos.x+5+8, tilepos.y+5,0) != null //links
+						|| level.getTower(tilepos.x+5-8, tilepos.y+5,0) != null //rechts
+						|| level.getTower(tilepos.x+5, tilepos.y+5+8,0) != null //oben
+						|| level.getTower(tilepos.x+5, tilepos.y+5-8,0) != null) //unten
+				{
+					//System.out.println("TOWER");
+					return;
+				}				
+				
+				//Point tilepos = new Point(x,y);
+				towerPlace.SetPosition(tilepos.x+5, tilepos.y+5);				
+				System.out.println("geplaced bei: "+towerPlace.x);	
+				System.out.println("geplaced bei: "+towerPlace.y);	
+				towerPlace.SetPlaceMode(false);
+				//überprüfen ob wiese
+				level.SetRenderRaster(false);
+				this.gold -= towerPlace.GetPrice();
+				this.updateOverlay();
+				towerPlace = null;    
+			}
+		}
     }
 	  
+	  Tower mouseOverTower = null;
+	
 	  public void onMouseMove(Point point)
 	  {    
 	    //Wenn gerade ein Tower platziert wird, die Position je nach Mausposition anpassen
@@ -344,6 +364,31 @@ public class GameRound {
 	    {
 	      towerPlace.SetPosition((point.x/mScale-5),(point.y/mScale)-80);
 	      level.SetMousePosition(point.x,point.y);
+	    }
+	    else
+	    {
+	    	//Wenn die Maus bei der letzten bewegung über einem Tower war
+	    	if(mouseOverTower != null)
+	    	{
+	    		//schauen ob jetzt immernoch ein Tower unter der Maus ist
+	    		Tower tmp = level.getTower((point.x/mScale), (point.y/mScale)-80,5);
+	    		if(tmp == null)
+	    		{
+	    			//Wenn kein Tower mehr unter maus -> radius ausschalten und tower aus liste löschen
+	    			mouseOverTower.SetPlaceMode(false);
+	    			mouseOverTower = null;
+	    		}
+	    	}
+	    	else 
+	    	{	    		
+	    		//Suchen ob ein Tower im Maus Radius ist
+		    	mouseOverTower = level.getTower((point.x/mScale), (point.y/mScale)-80,5);
+		    	if(mouseOverTower != null)
+		    	{
+		    		//wenn ja, radius anzeigen
+		    		mouseOverTower.SetPlaceMode(true);
+		    	}
+	    	}
 	    }
 	  }
 	

@@ -5,6 +5,7 @@ import game.GameRound;
 import game.entities.Enemy;
 import game.entities.Entity;
 import game.entities.Mob;
+import game.entities.Tower;
 import gfx.Colours;
 import gfx.Screen;
 
@@ -189,6 +190,8 @@ public class Level {
 					
 					if(tile1 == Tile.GRASS && tile2 == Tile.GRASS && tile3 == Tile.GRASS && tile4 == Tile.GRASS)
 					{
+						//return getTile(x,y);
+						
 						return new Point(x<<3,y<<3);
 					}
 					
@@ -347,6 +350,21 @@ public class Level {
 		return Tile.tiles[tiles[x+y*width]];
 	}
 
+	public Tower getTower(int x,int y, int radius)
+	{
+		for(Entity e : entities )
+		{
+			if (e.getClass() == game.entities.Tower.class)
+			{
+		    	//System.out.println("TOOWER x:"+e.x);
+		    	//System.out.println("TOOWER y:"+e.y);
+				if( Math.abs(e.x-x) <= radius && Math.abs(e.y-y)<=radius)
+					return (Tower)e;
+			}
+		}
+		return null;
+	}
+	
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
 		
