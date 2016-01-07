@@ -271,15 +271,26 @@ public class GameRound {
 	private void createNewWave(){
 		
 		minionsLeft=WAVE_SIZE; 
+		
+		/*Erstellt fortlaufend eine neue Welle vom nächsten Gegnertyp. 
+		 * Ist der Gegnertyp der letzte gewesen, wird wieder der erste erstellt
+		 */
 		EnemyType newEnemyType = EnemyTypes.get((wave-1)%EnemyTypes.size());
+		//Die Farben sind alle zufällig gewählt
 		newEnemyType.setColor(Colours.get(-1,rn.nextInt(556),rn.nextInt(556), rn.nextInt(556)));
+		//Die alte Liste wird geleert. 
 		EnemyList.clear();
 		
 		for(int i=0;i<WAVE_SIZE;i++){
 			EnemyList.add(new Enemy(level,-20,20,newEnemyType));
+			
+			// HP und Goldbelohnunung werden dynamisch an die Welle angepasst. 
+			// Auf die Werte HP und Reward in EnemyType wird hier nicht zurückgegriffen.
 			EnemyList.get(i).setMaxLive((int)(lastEnemyHP*1.15));
 			EnemyList.get(i).setReward((int)(lastEnemyReward+1));
 		}
+		
+		
 		lastEnemyHP = EnemyList.get(0).maxlive;
 		lastEnemyReward = EnemyList.get(0).getReward();
 	}
@@ -335,7 +346,12 @@ public class GameRound {
 						|| level.getTower(tilepos.x+5+8, tilepos.y+5,0) != null //links
 						|| level.getTower(tilepos.x+5-8, tilepos.y+5,0) != null //rechts
 						|| level.getTower(tilepos.x+5, tilepos.y+5+8,0) != null //oben
-						|| level.getTower(tilepos.x+5, tilepos.y+5-8,0) != null) //unten
+						|| level.getTower(tilepos.x+5, tilepos.y+5-8,0) != null //unten
+					
+						|| level.getTower(tilepos.x+5+8, tilepos.y+5+8,0) != null //oben rechts
+						|| level.getTower(tilepos.x+5-8, tilepos.y+5+8,0) != null //oben links
+						|| level.getTower(tilepos.x+5+8, tilepos.y+5-8,0) != null //unten rechts
+						|| level.getTower(tilepos.x+5-8, tilepos.y+5-8,0) != null) //unten links
 				{
 					//System.out.println("TOWER");
 					return;

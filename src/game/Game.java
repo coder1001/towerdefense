@@ -212,7 +212,7 @@ public class Game extends Canvas implements Runnable{
 			return;
 		} 
 		
-		//Wenn der Spieler alle Leben verlorgen hat, schaltet gamround den mode auf 3 (Game Over)
+		//Wenn der Spieler alle Leben verloren hat, schaltet gamround den mode auf 3 (Game Over)
 		if(gameround.mode==3){			
 			String msg = "Game Over!!!";
 			int scale=3;
