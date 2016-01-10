@@ -391,7 +391,7 @@ public class GameRound {
 	    		if(tmp == null)
 	    		{
 	    			//Wenn kein Tower mehr unter maus -> radius ausschalten und tower aus liste löschen
-	    			mouseOverTower.SetPlaceMode(false);
+	    			mouseOverTower.SetShowRadiusMode(false);
 	    			mouseOverTower = null;
 	    		}
 	    	}
@@ -402,7 +402,7 @@ public class GameRound {
 		    	if(mouseOverTower != null)
 		    	{
 		    		//wenn ja, radius anzeigen
-		    		mouseOverTower.SetPlaceMode(true);
+		    		mouseOverTower.SetShowRadiusMode(true);
 		    	}
 	    	}
 	    }

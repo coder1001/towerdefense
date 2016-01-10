@@ -19,6 +19,7 @@ public class Tower extends Entity{
 	public String name;
 	private int[] Sprite;
 	boolean inPlaceMode = false;
+	boolean inShowRadiusMode = false;
 	private int laserColor;
 	
 	
@@ -69,6 +70,7 @@ public class Tower extends Entity{
 		lockedEnemyNumber=towertype.getLockedEnemys();
 		shotTime = towertype.getShotTime();
 		this.inPlaceMode = false;
+		this.inShowRadiusMode = false;
 		this.readyToShot=true;
 		this.laserColor=towertype.getLaserColor();
 		LockedEnemys = new ArrayList<Mob>();
@@ -89,6 +91,11 @@ public class Tower extends Entity{
 	public void SetPlaceMode(boolean placemode)
 	{
 		this.inPlaceMode = placemode;
+	}
+	
+	public void SetShowRadiusMode(boolean radiusmode)
+	{
+		this.inShowRadiusMode = radiusmode;
 	}
 	
 	public int GetPrice()
@@ -195,7 +202,7 @@ public class Tower extends Entity{
 		}
 		
 		
-		if(this.inPlaceMode)
+		if(this.inPlaceMode || this.inShowRadiusMode)
 			screen.DrawCircle(x+3, y+1, this.range, 215);
 		
 		screen.render(xOffset , yOffset , xTile + yTile * 32, colour);
