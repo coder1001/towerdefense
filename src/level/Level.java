@@ -112,7 +112,7 @@ public class Level {
 		Entity rem = null;
 		for(Entity e : entities){
 			e.tick();
-			if (e.getClass() == game.entities.Enemy.class || e.getClass() == game.entities.Player.class)
+			if (e.getClass() == game.entities.Enemy.class)
 			{
 				Mob test = (Mob)e;
 				

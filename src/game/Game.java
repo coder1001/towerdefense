@@ -136,7 +136,7 @@ public class Game extends Canvas implements Runnable{
 	public void run() {
 		
 		long lastTime = System.nanoTime();
-		// Gibt die FPS an (ticks)
+		// Gibt die FPS an (ticks) hier: 30D -> 30 FPS
 		double nsPerTick = 1000000000D/30D;
 		
 		int frames = 0;
@@ -213,7 +213,8 @@ public class Game extends Canvas implements Runnable{
 		} 
 		
 		//Wenn der Spieler alle Leben verloren hat, schaltet gamround den mode auf 3 (Game Over)
-		if(gameround.mode==3){			
+		if(gameround.mode==3){	
+			gameround.renderTiles(screen);
 			String msg = "Game Over!!!";
 			int scale=3;
 			FontForGame.render(msg, screen,screen.xOffset+screen.width/2 - (msg.length()*(scale*8/2)),screen.yOffset+screen.height/2, Colours.get(-1,111,333,400), scale);

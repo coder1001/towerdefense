@@ -7,7 +7,6 @@ import java.util.Random;
 
 import game.entities.Enemy;
 import game.entities.EnemyType;
-import game.entities.Player;
 import game.entities.Tower;
 import game.entities.TowerType;
 import gfx.Colours;
@@ -60,7 +59,6 @@ public class GameRound {
 	
 	public Level level;
 	private Overlay overlay;
-	private Player player;
 	private int mScale;
 	
 	private int lastEnemyHP;
@@ -73,7 +71,7 @@ public class GameRound {
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
-		gold=5000;
+		gold=500;
 		health=20;
 		wave=1;
 		minionsLeft=0;
@@ -82,7 +80,7 @@ public class GameRound {
 		msNextMinion=1000;
 		level = new Level(levelPath, this);
 		overlay = new Overlay(overlayPath);
-		player = new Player(level, 8,8,handler);
+		//player = new Player(level, 8,8,handler);
 		//level.addEntity(player);
 		rn = new Random();
 		EnemyList = new ArrayList<Enemy>();
@@ -201,8 +199,8 @@ public class GameRound {
 	 * @author Marko Susic
 	 */
 	public void renderTiles(Screen screen){
-		int xOffset = player.x-(screen.width/2);
-		int yOffset = player.y-(screen.height/2);
+		int xOffset = screen.width/2;
+		int yOffset = screen.height/2;
 		overlay.render(screen, 0, 0);
 		level.renderTiles(screen,  xOffset, yOffset);
 		
@@ -252,6 +250,7 @@ public class GameRound {
 		health-=damage;
 		if(health<=0)
 			mode=GAME_OVER;
+		
 	}
 	
 	public void setGold(int reward){
