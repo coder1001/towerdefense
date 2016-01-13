@@ -1,5 +1,11 @@
 package gfx;
 
+/**
+ * Die Klasse packt alle 4 Farben im Spiel in eine int-Variable
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
 public class Colours {
 	
 	public static int get(int colour1, int colour2, int colour3, int colour4){

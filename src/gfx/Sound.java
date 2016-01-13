@@ -7,6 +7,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 
+/**
+ * Klasse für die Soundausgabe
+ * 
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
 
 public class Sound {
 

@@ -5,10 +5,25 @@ import level.Overlay;
 import gfx.Colours;
 import gfx.Screen;
 
+/**
+ * Jedes Tile ist 8x8 Pixelfeld. Diese Klasse verbindet die Farben der Level.pngs mit den Ingame-Farben
+ * 
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */ 
 public abstract class Tile {
 	
+	// Die ersten 8 Zeilen im Spritesheet sind für Tiles vorgesehen (8x32=256)
 	public static final Tile[] tiles = new Tile[256];
 	
+	/*
+	 * Hier werden die verschiedenen Tiles definiert. Ganz rechts die Farbe, welches der Block im 
+	 * Level.png hat, und links daneben die 4 Farben ,welche der Block im Spiel hat.
+	 * 
+	 * Man unterscheidet zwischen BasicTile und BasicSolidTile. BasicSolidTiles sind Blöcke wie Wände,
+	 * auf denen nichts stehen kann
+	 */
 	public static final Tile VOID = new BasicSolidTile(0,0,0, Colours.get(555, -1, -1, -1), 0xFF000000);
 	public static final Tile STONE = new BasicSolidTile(1,1,0, Colours.get(-1, 333,-1,-1), 0xFF555555);
 	public static final Tile GRASS = new BasicTile(2,2,0, Colours.get(-1, 131,141,-1), 0xFF00FF00);

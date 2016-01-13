@@ -1,5 +1,13 @@
 package gfx;
 
+/**
+ * Ermöglicht das Schreiben von Texten im Spiel. Die Klasse greift auf die letzten beiden
+ * Zeilen des SpriteSheet zu
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
+
 public class FontForGame {
 	
 	private static String chars=""+"ABCDEFGHIJKLMNOPQRSTUVWXYZ      "+"0123456789.,:;'\"!?$%()-=+/      ";
