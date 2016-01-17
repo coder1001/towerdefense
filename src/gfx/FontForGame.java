@@ -9,9 +9,19 @@ package gfx;
  */
 
 public class FontForGame {
-	
+	// String mit allen im Spiel verfügbaren Zeichen
 	private static String chars=""+"ABCDEFGHIJKLMNOPQRSTUVWXYZ      "+"0123456789.,:;'\"!?$%()-=+/      ";
 	
+	/**
+	 * Schreibt eine Textnachricht auf den Bildschirm
+	 * 
+	 * @param msg: Der zu zeichnende Text
+	 * @param screen: Der Bildschirm, auf dem zu zeichnen ist
+	 * @param x: genaue X-Pos
+	 * @param y: genaue Y-Pos
+	 * @param colour: Schriftfarbe
+	 * @param scale: Scalierung (Größe)
+	 */
 	public static void render(String msg, Screen screen, int x, int y, int colour, int scale){
 		msg = msg.toUpperCase();
 		

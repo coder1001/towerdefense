@@ -1,5 +1,11 @@
 package gfx;
 
+/**
+ * Die Klasse simuliert den Bildschirm
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
 public class Screen {
 	public static final int MAP_WIDTH = 64;
 	public static final int MAP_WIDTH_MASK = MAP_WIDTH-1;
@@ -78,7 +84,16 @@ public class Screen {
 	public void render(int xPos, int yPos, int tile, int colour){
 		render(xPos,yPos,tile,colour,0x00,1);
 	}
-	
+	/**
+	 * Zeichnet ein 4x4 Feld
+	 * 
+	 * @param xPos X-Position
+	 * @param yPos Y-Position
+	 * @param xTile X-Position im SpriteSheet
+	 * @param yTile Y-Position im SpriteSheet
+	 * @param colour Farbe des zu zeichnenden Objektes
+	 * @param scale Skalierung
+	 */
 	public void renderBigTile(int xPos, int yPos, int xTile, int yTile, int colour, int scale)
 	{
 		int modifier = 8 * scale;
@@ -90,7 +105,15 @@ public class Screen {
 		render(xOffset , yOffset + modifier , xTile + (yTile+1) * 32, colour);
 		render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour);
 	}
-	
+	/**
+	 * Zeichnet ein Feld aus dem SpriteSheet
+	 * @param xPos X-Position des zu zeichnenden Objects
+	 * @param yPos Y-Position des zu zeichnenden Objects
+	 * @param tile Welches Tile aus dem Spritesheet soll gerendert werden
+	 * @param colour Die Farbe
+	 * @param mirrorDir Bei Gegnern: Je nach Richtung werden die Tiles umgedreht
+	 * @param scale Skalierung
+	 */
 	public void render(int xPos, int yPos, int tile, int colour, int mirrorDir, int scale){
 		xPos -= xOffset;
 		yPos -= yOffset;

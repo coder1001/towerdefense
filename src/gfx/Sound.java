@@ -32,13 +32,18 @@ public class Sound {
 			e.printStackTrace();
 		}	
 	}
-	
+	/**
+	 * Startet den Sound
+	 */
 	public void Start()
 	{
 	    clip.setFramePosition(0);
 		clip.start();
 	}
 	
+	/**
+	 * Beendet den Sound
+	 */
 	public void Stop()
 	{
 	   clip.stop();	
