@@ -34,7 +34,15 @@ public class Screen {
 	
 
 	
-	
+	/**
+	 * Zeichnet eine Linie auf das Display
+	 * 
+	 * @param x1 Erster Punkt X
+	 * @param y1 Erster Punkt Y
+	 * @param x2 Zweiter Punkt  X
+	 * @param y2 Zweiter Punkt  Y
+	 * @param color Farbe des Striches
+	 */
 	public void DrawLine(int x1, int y1, int x2, int y2, int color)
 	{
 		x1 -= xOffset;
@@ -66,7 +74,13 @@ public class Screen {
 		//pixels[x1+y1*width] = 140; //anfang zeichnen
 		//pixels[pixelende] = 140; //ende zeichnen
 	}
-	
+	/**
+	 * Zeichnet einen Kreis. Wird für den Schussradius eines Towers benötigt
+	 * @param x x-Koord des Mittelpunktes
+	 * @param y y-Koord des Mittelpunktes
+	 * @param r Radius des Kreises
+	 * @param color Farbe des Kreises
+	 */
 	public void DrawCircle(int x, int y, int r, int color)
 	{
 		for(int i = 0;i<360;i++)

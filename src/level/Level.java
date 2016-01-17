@@ -71,7 +71,6 @@ public class Level {
 		}
 	}
 	
-	
 	/**
 	 *  Ermittelt die einzelnen Tiles aus dem Level, welches zuvor eingelesen wurde
 	 */

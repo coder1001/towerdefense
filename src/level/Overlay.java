@@ -1,6 +1,12 @@
 package level;
 
-
+/**
+ * Diese Klasse beinhaltet das Overlay, also den oberen Teil des Fensters. Hier sind 
+ * Informationen wie Gold, Leben , Wave und die Tower, welche man bauen kann, zu sehen
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
 import game.entities.Entity;
 import game.entities.Mob;
 import game.entities.Tower;
@@ -54,6 +60,10 @@ public class Overlay {
 		}		
 	}
 	
+	/**
+	 * Fügt eine Liste von TowerTypes dem Overlay hinzu
+	 * @param towertypes ArrayList von TowerTypes
+	 */
 	public void AddTowerTypes(ArrayList<TowerType> towertypes)
 	{
 		this.towertypes = towertypes;
@@ -74,6 +84,9 @@ public class Overlay {
 		this.Lifes = lifes;
 	}
 	
+	/**
+	 *  Lädt dsa Overlay von einer Datei ein
+	 */
 	private void loadLevelFromFile() {
 		try{
 			this.image = ImageIO.read(Overlay.class.getResource(this.imagePath));
@@ -86,6 +99,9 @@ public class Overlay {
 		}
 	}
 	
+	/**
+	 *  Ermittelt die einzelnen Tiles aus dem Overlay, welches zuvor eingelesen wurde
+	 */
 	private void loadTiles(){
 		int[] tileColours = this.image.getRGB(0,0, width, height, null, 0 , width);
 		for( int y = 0; y < height; y++){
@@ -105,19 +121,20 @@ public class Overlay {
 		image.setRGB(x,y,newTile.getLevelColour());
 	}
 
-	public void tick(){
-	}
-	
+	/**
+	 * 
+	 * Zeichnet alle Tiles des Overlays
+	 */
 	
 	public void renderTiles(Screen screen, int xOffset, int yOffset){
-		if(xOffset<0) xOffset =0;
+		/*if(xOffset<0) xOffset =0;
 		if(xOffset>((width<<3)-screen.width)) xOffset = ((width<<3)-screen.width);
 		if(yOffset<0) yOffset =0;
 		if(yOffset>((height<<3)-screen.height)) yOffset = ((height<<3)-screen.height);
-		
+		*/
 		xOffset = 0;
-		yOffset = 0;
-		screen.setOffset(xOffset,yOffset);
+		yOffset = 0; 
+		screen.setOffset(xOffset,yOffset); 
 		
 		for(int y = 0; y < height;y++){
 			for(int x = 0; x < width;x++){
@@ -127,6 +144,10 @@ public class Overlay {
 		
 	}
 	
+	/**
+	 * 
+	 * Zeichnet ein Tile des Overlays
+	 */
 	public void render(Screen screen, int xOffset, int yOffset)
 	{
 		renderTiles(screen, xOffset, yOffset);
@@ -135,6 +156,10 @@ public class Overlay {
 		renderStats(screen);
 	}
 	
+	/**
+	 * 
+	 * Zeichnet alle TowerTypes des Overlays
+	 */
 	public void renderTowertypes(Screen screen){
 		int i = 0;
 		int k = 15;
@@ -155,6 +180,14 @@ public class Overlay {
 		}
 	}	
 
+	/**
+	 * 
+	 * Schaut bei einem Mausklick im Overlay, ob ein TowerType angeklickt wurde
+	 * @param x Koordinate
+	 * @param y Koordinate
+	 * @return Gibt den TowerType an, welcher angeklickt wurde. Wenn nix angeklickt wurde, gibt
+	 * die Funktion null zurück.
+	 */
 	public TowerType TowerTypeClicked(int x,int y)
 	{
 			System.out.println("click: ("+(x-15)+"/"+y+")");
@@ -178,7 +211,12 @@ public class Overlay {
 			System.out.println(towertypes.get(2).getPosition().getX()*3+"/"+towertypes.get(2).getPosition().getY());
 			System.out.println(towertypes.get(3).getPosition().getX()*3+"/"+towertypes.get(3).getPosition().getY());*/
 	}
-	
+	/**
+	 * 
+	 * Zeichnet alle Statistiken im aktuellen Spiel:
+	 * Gold, Leben und aktuelle Gegnerwelle
+	 * @param screen
+	 */
 	public void renderStats(Screen screen)
 	{        
 		screen.renderBigTile(posx, posy, GOLDXTILE, GOLDYTILE, GOLDCOLOR, 1);
