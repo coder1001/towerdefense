@@ -30,10 +30,6 @@ public abstract class Tile {
 	public static final Tile SAND = new BasicTile(3,3,0, Colours.get(-1, 431,431,-1), 0xFFCFCD2B);  //Farbe Ingame / Farbe im Bild
 	public static final Tile END = new BasicTile(4,4,0, Colours.get(-1, 111,300,500), 0xFFFF0018);
 	
-	//public static final Tile MONEY = new BigTile(5,2,18, Colours.get(-1, 444,550,000), 0xFF0000FF, "Money");
-	//public static final Tile LIFE = new BigTile(6,0,18, Colours.get(-1, 500,000,000), 0xFFFF0000, "Leben");
-	
-	
 	/*
 	 * Overlay Tiles für die 4 Seiten und die Mitte
 	 */	
@@ -71,6 +67,10 @@ public abstract class Tile {
 		return id;
 	}
 	
+	/**
+	 * Gibt zurück, ob der Block eine Wand ist oder nicht
+	 * @return
+	 */
 	public boolean isSolid(){
 		return solid;
 	}

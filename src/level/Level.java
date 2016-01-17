@@ -367,7 +367,6 @@ public class Level {
 	
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
-		
 	}
 	
 	public void removeEntity(Entity entity) {
