@@ -19,7 +19,12 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import level.tiles.Tile;
-
+/**
+ * Diese Klasse beinhaltet das Level, also das Spielfeld auf dem Tower platziert werden können.
+ * 
+ * @author Marko Susic
+ * @version 1.0
+ */
 public class Level {
 	private byte[] tiles;
 	public int width;
@@ -36,13 +41,14 @@ public class Level {
 	private int mousey;
 	
 	public Level(String imagePath, GameRound gameround){
-		
+		//lädt das Level ein
 		this.gameround = gameround;
 		if(imagePath != null){
 			this.imagePath = imagePath;
 			this.loadLevelFromFile();
 			
 		}else{
+			// Wenn das Level nicht geladen wird, wird ein default-Level geladen
 			this.width = 64;
 			this.height = 64;
 			tiles = new byte[width*height];
@@ -50,6 +56,9 @@ public class Level {
 		}
 	}
 	
+	/**
+	 *  Lädt dsa Level von einer Datei ein
+	 */
 	private void loadLevelFromFile() {
 		try{
 			this.image = ImageIO.read(Level.class.getResource(this.imagePath));
@@ -62,6 +71,10 @@ public class Level {
 		}
 	}
 	
+	
+	/**
+	 *  Ermittelt die einzelnen Tiles aus dem Level, welches zuvor eingelesen wurde
+	 */
 	private void loadTiles(){
 		int[] tileColours = this.image.getRGB(0,0, width, height, null, 0 , width);
 		for( int y = 0; y < height; y++){
@@ -75,9 +88,9 @@ public class Level {
 			}
 		}
 	}
-	/*
+	/**
 	 * 
-	 * Klasse für spätere Implentierungen, z.B für einen Leveleditor mit Speicherfunktion
+	 * Speichert ein Level als png-File auf dem PC ab
 	 */
 	private void saveLevelToFile(){
 		try{
@@ -87,12 +100,17 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * 
+	 * Tauscht ein Tile aus
+	 */
 	public void alterTile(int x, int y, Tile newTile){
 		this.tiles[x+y*width] = newTile.getId();
 		image.setRGB(x,y,newTile.getLevelColour());
+		
 	}
 
-	/*
+	/**
 	 *  Alternativ zum Laden eines Bildes kann das Level auch durch einen Algorithmus generiert werden.
 	 *  Wird nicht benutzt, nur eine Testklasse
 	 */
@@ -108,6 +126,13 @@ public class Level {
 		}
 	}
 	
+	/**
+	 * Spielelogik des Levels:
+	 * 
+	 * Alle Entities werden angeschaut
+	 * ->ist es ein Enemy und hat kein Leben mehr 
+	 * ->ist es ein Enemy und hat das Ende erreicht
+	 */
 	public void tick(){
 		Entity rem = null;
 		for(Entity e : entities){
@@ -125,6 +150,7 @@ public class Level {
 				else if (e.getClass() == game.entities.Enemy.class)
 				{
 					Enemy test2 = (Enemy)e;
+					// Wurde das Ziel von einem Enemy erreicht?
 					if(test2.reachedEnd==true){
 						rem = e;
 						gameround.reduceEnemy();
@@ -144,7 +170,10 @@ public class Level {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * Zeichnet alle Tiles des Levels
+	 */
 	public void renderTiles(Screen screen, int xOffset, int yOffset){
 		if(xOffset<0) xOffset =0;
 		if(xOffset>((width<<3)-screen.width)) xOffset = ((width<<3)-screen.width);
@@ -170,6 +199,10 @@ public class Level {
 	int tiley;
 	boolean draw = false;
 	
+	/**
+	 * 
+	 * Zeichnet alle Tiles des Levels
+	 */
 	public Point TileClicked(int posx, int posy)
 	{
 		for(int y = 0; y < height;y++)
@@ -204,18 +237,27 @@ public class Level {
 		}
 		return null;
 	}
-	
+	/**
+	 * Wenn true, wir das Raster gezeichnet
+	 */
 	public void SetRenderRaster(boolean render)
 	{
 		this.renderRaster = render;
 	}
-	
+	/**
+	 * Ändert die Mausposition
+	 */
 	public void SetMousePosition(int x,int y)
 	{
 		this.mousex = x;
 		this.mousey = y;
 	}
 	
+	/**
+	 * Zeichnet das Raster beim Platzieren eines Towers
+	 * 
+	 * @param Auf welchem Screen soll das Raster gezeichnet werden
+	 */
 	public void renderRaster(Screen screen)
 	{
 		if (renderRaster)
@@ -337,19 +379,36 @@ public class Level {
 		*/
 	}
 	
-	
+	/**
+	 * Zeichnet alle Entities ( Tower, Enemys)
+	 */
 	public void renderEntities(Screen screen){
 		for(Entity e : entities){
 			e.render(screen);
 		}
 	}
-
+/**
+ * Gibt das Tile an einer bestimmten X/Y Position zurück
+ * 
+ * @param x Koordinate
+ * @param y Koordinate
+ * @return Gibt das Tile zurück
+ */
 	public Tile getTile(int x, int y) {
 		if(0 > x || x >= width || 0 > y || y >= height) 
 			return Tile.VOID;
 		return Tile.tiles[tiles[x+y*width]];
 	}
 
+	/**
+	 * Sucht an einer Position im Level nach einem Tower
+	 * 
+	 * @param x x-Koord
+	 * @param y y-Koord
+	 * @param radius Der Radius in dem anhand der X/Y Positon aus gesucht werden soll
+	 * @return Wenn sich ein Tower an dieser Stelle befindet, wird dieser zurückgegeben. 
+	 * Wenn nicht dann null.
+	 */
 	public Tower getTower(int x,int y, int radius)
 	{
 		for(Entity e : entities )
@@ -364,11 +423,16 @@ public class Level {
 		}
 		return null;
 	}
-	
+	/**
+	 * Fügt ein Enemy dem Level hinzu
+	 */
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
 	}
 	
+	/**
+	 * Entfernt ein Enemy aus dem Level
+	 */
 	public void removeEntity(Entity entity) {
 	    this.entities.remove(entity);
 	    

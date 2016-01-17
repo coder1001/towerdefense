@@ -10,8 +10,8 @@ public class Screen {
 	public static final int MAP_WIDTH = 64;
 	public static final int MAP_WIDTH_MASK = MAP_WIDTH-1;
 	
-	public static final byte BIT_MIRROR_X = 0x01;
-	public static final byte BIT_MIRROR_Y = 0x02;
+	public static final byte BIT_MIRROR_X = 1;
+	public static final byte BIT_MIRROR_Y = 2;
 	
 	public int[] pixels;
 	
@@ -157,7 +157,14 @@ public class Screen {
 		}
 		
 	}
-
+	/**
+	 * Setzt einen neuen Offset. Der Offset ist dafür gedacht, größere Level ins Spiel zu laden.
+	 * Dadurch wäre es möglich, in dem bestehenden Screen nur einen Teil des Levels zu sehen und
+	 * durch Maus/TastatureEingaben sich im Level zu bewegen.
+	 * 
+	 * @param xOffset
+	 * @param yOffset
+	 */
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;	
