@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	/**
-	 * 
+	 * Init Funktion, die das Overlay erstellt und die Karte einließt
 	 * @author Kai Flöck
 	 */
 	

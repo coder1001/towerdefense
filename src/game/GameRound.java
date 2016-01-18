@@ -16,7 +16,7 @@ import level.Overlay;
 import level.tiles.Tile;
 
 /**
- * In der Klasse GameRound werden alle Informationen über die aktuelle Spielgrunde festgehalten.
+ * In der Klasse GameRound werden alle Informationen über die aktuelle Spielrunde festgehalten.
  * 
  * @author Kai Flöck
  * @version 1.0
@@ -68,6 +68,14 @@ public class GameRound {
 	public ArrayList<TowerType> TowerTypes;// = new ArrayList<TowerTypes>();
 	public ArrayList<EnemyType> EnemyTypes;// = new ArrayList<TowerTypes>();
 	public ArrayList<Enemy> EnemyList;
+	
+	/**
+	 * Konstruktor für die GameRound
+	 * @param levelPath Pfad zum Levelbild
+	 * @param overlayPath Pfad zum Overlaybild
+	 * @param handler Instanz der InputHandler Klasse
+	 * @param scale
+	 */
 	
 	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
 		mScale = scale;
@@ -252,7 +260,10 @@ public class GameRound {
 			mode=GAME_OVER;
 		
 	}
-	
+	/**
+	 * Aktualisiert/setzt Goldwert des Spielers
+	 * @param reward Wert der gutgeschrieben werden soll
+	 */
 	public void setGold(int reward){
 		
 		this.gold+=reward;
