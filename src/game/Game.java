@@ -24,7 +24,7 @@ import javax.swing.JFrame;
 /**
  * In der Klasse Game wird das Fenster erzeugt. Hier befindet sich die Hauptschleife des Spiels
  * 
- * @author Marko Susic
+ * @author Kai Flöck
  * @version 1.0
 */
 public class Game extends Canvas implements Runnable{
@@ -58,7 +58,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * Konstruktor
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public Game(){
@@ -79,6 +79,12 @@ public class Game extends Canvas implements Runnable{
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * 
+	 * @author Kai Flöck
+	 */
+	
 	
 	public void init(){
 		int index =0;
@@ -106,7 +112,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * Startet das Spiel-> Startet einen Thread. Ab hier läuft die run-Methode des Threads
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public synchronized void start() {
@@ -117,7 +123,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * Beendet das Spiel
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public synchronized void stop() {
@@ -130,7 +136,7 @@ public class Game extends Canvas implements Runnable{
 	 * render() - Neuzeichnen des Bildschirms
 	 * Methoden aufgerufen
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public void run() {
@@ -185,7 +191,7 @@ public class Game extends Canvas implements Runnable{
 	/**
 	 * Beinhaltet die Spielelogik. Updatet Tower, Enemys, Schüsse
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public void tick(){
@@ -202,7 +208,7 @@ public class Game extends Canvas implements Runnable{
 	 * Neuzeichnen des Bildschirms. Durch die BufferStrategy wird das Bild weicher gezichnet.
 	 * Es entsteht kein Flimmern
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @version 1.0
 	*/
 	public void render(){

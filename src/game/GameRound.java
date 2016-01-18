@@ -18,7 +18,7 @@ import level.tiles.Tile;
 /**
  * In der Klasse GameRound werden alle Informationen über die aktuelle Spielgrunde festgehalten.
  * 
- * @author Marko Susic
+ * @author Kai Flöck
  * @version 1.0
  */
 public class GameRound {
@@ -130,7 +130,7 @@ public class GameRound {
 	/**
 	 * Aktualisiert die Gameround
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	public void tick(){
 		
@@ -179,7 +179,7 @@ public class GameRound {
 	 * 		-> Leben
 	 * 		-> Aktuelle Welle
 	 * 
-	 *  @author Marko Susic
+	 *  @author Kai Flöck
 	 */
 	public void updateOverlay(){
 		
@@ -196,7 +196,7 @@ public class GameRound {
 	/**
 	 * Zeichnet oben das Overlay und unten das Level
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	public void renderTiles(Screen screen){
 		int xOffset = screen.width/2;
@@ -209,7 +209,7 @@ public class GameRound {
 	/**
 	 * Zeichnet alle Enemys und Tower
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	public void renderEntities(Screen screen){
 		level.renderEntities(screen);
@@ -218,7 +218,7 @@ public class GameRound {
 	/**
 	 * Überprüft ob noch Monster einer Welle übrig sind
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 * @return true, falls noch Gegner übrig sind,false wenn keine Gegner mehr übrig sind
 	 */
 	public boolean enemyLeft(){
@@ -232,7 +232,7 @@ public class GameRound {
 	 * Wenn in einer Welle ein Gegner besiegt wird oder das Ziel erreicht, wird die Variable, welche die Anzahl
 	 * der noch lebenden Gegner enthält um eins reduziert
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	public void reduceEnemy(){
 		if(minionsLeft>0)
@@ -243,7 +243,7 @@ public class GameRound {
 	 * Wenn ein Gegner das Ziel erreicht, wird das Leben um den Schadenswert des Monsters verringert.
 	 * Wenn das Leben des Spielersauf <= 0 fällt, wird mode auf GAME_OVER gesetzt
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	public void reduceLife(int damage){
 		
@@ -265,7 +265,7 @@ public class GameRound {
 	 * 2. Lösche alle Enemy aus der EnemyList
 	 * 3. Füge einen neuen Gegnertyp x-Mal in die Liste
 	 * 
-	 * @author Marko Susic
+	 * @author Kai Flöck
 	 */
 	private void createNewWave(){
 		
