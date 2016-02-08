@@ -321,63 +321,10 @@ public class Level {
 				}
 			}
 			
-			
-			/*int x = tilex;
-			int y = tiley;
-			int dis = 8;
-			screen.DrawLine(x<<3, y<<3, (x<<3)+dis, y<<3, 1); //oben
-			screen.DrawLine((x<<3), y<<3, (x<<3), (y<<3)+dis, 1); //links
-			screen.DrawLine((x<<3)+dis, y<<3, (x<<3)+dis, (y<<3)+dis, 1); //rechts					
-			screen.DrawLine(x<<3, (y<<3)+dis, (x<<3)+dis, (y<<3)+dis, 1); //unten
-			x = tilex+1;
-			y = tiley;
-			screen.DrawLine(x<<3, y<<3, (x<<3)+dis, y<<3, 1); //oben
-			screen.DrawLine((x<<3), y<<3, (x<<3), (y<<3)+dis, 1); //links
-			screen.DrawLine((x<<3)+dis, y<<3, (x<<3)+dis, (y<<3)+dis, 1); //rechts					
-			screen.DrawLine(x<<3, (y<<3)+dis, (x<<3)+dis, (y<<3)+dis, 1); //unten
-			x = tilex;
-			y = tiley+1;
-			screen.DrawLine(x<<3, y<<3, (x<<3)+dis, y<<3, 1); //oben
-			screen.DrawLine((x<<3), y<<3, (x<<3), (y<<3)+dis, 1); //links
-			screen.DrawLine((x<<3)+dis, y<<3, (x<<3)+dis, (y<<3)+dis, 1); //rechts					
-			screen.DrawLine(x<<3, (y<<3)+dis, (x<<3)+dis, (y<<3)+dis, 1); //unten
-			x = tilex+1;
-			y = tiley+1;
-			screen.DrawLine(x<<3, y<<3, (x<<3)+dis, y<<3, 1); //oben
-			screen.DrawLine((x<<3), y<<3, (x<<3), (y<<3)+dis, 1); //links
-			screen.DrawLine((x<<3)+dis, y<<3, (x<<3)+dis, (y<<3)+dis, 1); //rechts					
-			screen.DrawLine(x<<3, (y<<3)+dis, (x<<3)+dis, (y<<3)+dis, 1); //unten*/
 		}
-		/*for(int y = 0; y < height;y++){
-			int tiles = 0;
-			for(int x = 0; x < width;x++){
-				
-				
-				
-				Tile tile1 = getTile(x+0,y);
-				Tile tile2 = getTile(x+0,y+1);
-				Tile tile3 = getTile(x+1,y);
-				Tile tile4 = getTile(x+1,y+1);
-				
-				
-		
-				
-				if(tile1 == Tile.GRASS && tile2 == Tile.GRASS && tile3 == Tile.GRASS && tile4 == Tile.GRASS)
-				{
-				    int dis = 16;
-				
-					screen.DrawLine(x<<3, y<<3, (x<<3)+dis, y<<3, 1); //oben	
-					//screen.DrawLine((x<<3), y<<3, (x<<3), (y<<3)+dis, 1); //links
-					//screen.DrawLine((x<<3)+dis, y<<3, (x<<3)+dis, (y<<3)+dis, 1); //rechts					
-					//screen.DrawLine(x<<3, (y<<3)+dis, (x<<3)+dis, (y<<3)+dis, 1); //unten
-				}
-				
-				//getTile(x,y).render(screen,this,x<<3,y<<3);
-			}
-		}
-		*/
 	}
-	
+			
+			
 	/**
 	 * Zeichnet alle Entities ( Tower, Enemys)
 	 */

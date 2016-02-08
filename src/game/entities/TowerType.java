@@ -3,7 +3,12 @@ package game.entities;
 import java.awt.Point;
 
 import gfx.Screen;
-
+/**
+ * Klasse zum definieren der verchiedenen Towertypes und deren Eigenschaften
+ * Wird ebenfalls verwendet um die Icons im oberen Teil des Overlays zu zeichnen
+ * @author Martin
+ *
+ */
 public class TowerType {
 
 	private int posx;
@@ -21,6 +26,22 @@ public class TowerType {
 	private int mShotTime;
 	private int mLaserColor;
 	
+	/**
+	 * KOnstruktor mit dem die Eigenschaften des Towers zugewiesen werden
+	 * @param Name
+	 * @param Range
+	 * @param Damage
+	 * @param Price
+	 * @param SpriteX
+	 * @param SpriteY
+	 * @param Sound
+	 * @param Color
+	 * @param effect
+	 * @param reloadTime
+	 * @param shotTime
+	 * @param lockedEnemys
+	 * @param laserColor
+	 */
 	public TowerType(String Name, int Range, int Damage,int Price, int SpriteX,int SpriteY, String Sound, int Color, int effect, int reloadTime, int shotTime, int lockedEnemys, int laserColor)
 	{
 		mName = Name;
@@ -39,17 +60,27 @@ public class TowerType {
 		mLaserColor = laserColor;
 	}
 
+	/**
+	 * Position setzen (Bspw oben im Overlay Teil)
+	 * @param x
+	 * @param y
+	 */
 	public void setPosition(int x, int y)
 	{
 		posx = x;
 		posy = y;
 	}
 	
+	/**
+	 * Position abfragen
+	 * @return
+	 */
 	public Point getPosition()
 	{
 		return new Point(posx,posy);
 	}
 	
+
 	public String getName() {
 		return mName;
 	}
@@ -97,6 +128,11 @@ public class TowerType {
 		return mLaserColor;
 	}
 	
+	/**
+	 * Funktion zum zeichnen des Towertype Icons im Overlay)
+	 * @param screen Screen auf das gezeichnet wird, overlay
+	 * @param Active Gibt an ob man genug Geld zum bauen hat (zb genug Gold)
+	 */
 	public void render(Screen screen, boolean Active) {
 		
 		int x = posx;
@@ -109,17 +145,17 @@ public class TowerType {
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
 		
-		//colour = mColor;
 		int colour = mColor;
 		if(!Active)
 		   colour = gfx.Colours.get(-1, 333, 444, 222);
 		
-	
+		//DIe 4 Tiles zeichnen, aus denen das Towerbild besteht
 		screen.render(xOffset , yOffset , xTile + yTile * 32, colour);
 		screen.render(xOffset + modifier, yOffset , (xTile + 1) + yTile * 32, colour);
 		screen.render(xOffset , yOffset + modifier , xTile + (yTile+1) * 32, colour);
 		screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour);
 		
+		//Name des Towers drunter zeichnen
 		gfx.FontForGame.render(mName, screen, x-(mName.length()*(8/2)), y+10, gfx.Colours.get(-1, 000, 000, 000), 1);
 		
 	}

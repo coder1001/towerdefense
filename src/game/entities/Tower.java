@@ -7,6 +7,13 @@ import gfx.Screen;
 import gfx.Sound;
 import level.Level;
 
+/**
+ * Die Tower Klasse erweitert die Entity Klasse
+ * Es handelt sich um ein feststehendes Objekt, welches Gegner in reichweite sucht und auf diese schießt
+ * 
+ * @author Martin
+ *
+ */
 public class Tower extends Entity{
 	
 	protected int scale = 1;	
@@ -52,7 +59,13 @@ public class Tower extends Entity{
 	public ArrayList<Mob> LockedEnemys;
 	private int lockedEnemyNumber;
 	
-	
+	/**
+	 * Konstruktor, in dem die Standardparameter mitgegeben werden
+	 * @param level
+	 * @param x
+	 * @param y
+	 * @param towertype
+	 */
 	public Tower(Level level,  int x, int y,TowerType towertype) {
 		super(level);		
 		this.x = x;
@@ -82,27 +95,51 @@ public class Tower extends Entity{
 		
 	}
 
+	/**
+	 * Funktion zum setzen der Towerposition
+	 * @param x
+	 * @param y
+	 */
 	public void SetPosition(int x,int y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 	
+	/**
+	 * FUnktion um den Tower in den PLacemode zu setzen
+	 * In diesem Modus kann der Tower nicht schießen
+	 * @param placemode
+	 */
 	public void SetPlaceMode(boolean placemode)
 	{
 		this.inPlaceMode = placemode;
 	}
 	
+	/**
+	 * Funktion um den Radius anzuzeigen, in dem der Tower schießt
+	 * Zum Beispiel wenn man mit der Maus drüber zeigt oder einen neuen Twoer zeichnet
+	 * @param radiusmode
+	 */
 	public void SetShowRadiusMode(boolean radiusmode)
 	{
 		this.inShowRadiusMode = radiusmode;
 	}
 	
+	/**
+	 * Towerpreis ermitteln?
+	 * @return
+	 */
 	public int GetPrice()
 	{
 		return price;
 	}
 	
+	/**
+	 * Funktion überprüft ob ein ENtity in der Reichweite vom Tower ist
+	 * @param e Entity das überprüft wird
+	 * @return
+	 */
 	private Boolean IsInRange(Entity e)
 	{
 		if(e == null)
@@ -116,16 +153,15 @@ public class Tower extends Entity{
 	
 	long lastTime = System.nanoTime();
 	
+	/**
+	 * Funktion in der die Physik Berechnungen durchgeführt werden
+	 */
 	public void tick() {		
+		
+		//Wenn in Placemode -> nicht schießen
 		if (this.inPlaceMode)
     	  return;
       
-		//long curTime = System.nanoTime();
-		//System.out.println("Zeit: "+(curTime-lastTime));
-		//lastTime = curTime;
-		
-		
-		//Boolean found = false;
 		
 		
 		//Wenn der Tower noch nicht seine Maximalanzahl an Gegner im Visier hat...
@@ -187,7 +223,9 @@ public class Tower extends Entity{
 		}	
 	}//end tick
 	
-	
+	/**
+	 * Funktion zum zeichnen der Tower
+	 */
 	public void render(Screen screen) {
 		int xTile = Sprite[0];
 		int yTile = Sprite[1];		
@@ -196,21 +234,29 @@ public class Tower extends Entity{
 		int xOffset = x - modifier/2;
 		int yOffset = y - modifier/2 -4;
 		
+		//Wenn der Tower einen Gegner anvisiert hat, Linie zeichnen (Stellt den Schuss dar)
 		for(Mob lockedEnemy : LockedEnemys){
 			if(readyToShot == true)
 				screen.DrawLine(x+5, y-5, lockedEnemy.x,lockedEnemy.y,this.laserColor);
 		}
 		
-		
+		//Wenn der Tower im PLacemode oder im showRadiusMode ist, Kreis für den Radius zeichnen
 		if(this.inPlaceMode || this.inShowRadiusMode)
 			screen.DrawCircle(x+3, y+1, this.range, 215);
 		
+		//Tower besteht aus 4 Tiles, alle zeichnen
 		screen.render(xOffset , yOffset , xTile + yTile * 32, colour);
 		screen.render(xOffset + modifier, yOffset , (xTile + 1) + yTile * 32, colour);
 		screen.render(xOffset , yOffset + modifier , xTile + (yTile+1) * 32, colour);
 		screen.render(xOffset + modifier, yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour);
 	}
 	
+	/**
+	 * Funktion für Kollissionsüberprüfung, wird hier nicht benötigt.
+	 * @param xa
+	 * @param ya
+	 * @return
+	 */
 	public boolean hasCollided(int xa, int ya) {
 		return false;
 	}

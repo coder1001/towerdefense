@@ -1,6 +1,14 @@
 package game.entities;
 
 
+/**
+ * 
+ *  Die verschiedenen Monster-Typen werden mit je einer Instanz dieser Klasse definiert
+ *  Wird ein neues Monster vom Typ Enemy erstellt, werden die Eigenschaften mit Hilfe von EnemyType parametrisiert.
+ * 
+ * @author  Martin Preuﬂer
+ * @version 1.0
+ */ 
 
 public class EnemyType {
 
@@ -13,6 +21,19 @@ public class EnemyType {
 	private int mReward;
 	private int mDamage;
 	
+	/**
+	 * Konstruktor mit dem alle notwendigen Parameter direkt zugewiesen werden
+	 * 
+	 * @param Name
+	 * @param HP
+	 * @param Speed
+	 * @param SpriteX
+	 * @param SpriteY
+	 * @param Sound
+	 * @param color
+	 * @param reward
+	 * @param damage
+	 */
 	public EnemyType(String Name, int HP, int Speed, int SpriteX,int SpriteY, String Sound, int color, int reward, int damage)
 	{
 		mName = Name;
@@ -28,6 +49,8 @@ public class EnemyType {
 		
 	}
 
+	//Get/Set Methoden um die privaten Attribute auslesen/setzen
+	
 	public String getName() {
 		return mName;
 	}
