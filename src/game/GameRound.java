@@ -77,7 +77,7 @@ public class GameRound {
 	 * @param scale
 	 */
 	
-	public GameRound(String levelPath, String overlayPath, InputHandler handler, int scale){
+	public GameRound(String levelPath, String overlayPath,  int scale){
 		mScale = scale;
 		gold=500;
 		health=20;

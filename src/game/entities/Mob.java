@@ -3,7 +3,6 @@ package game.entities;
 import game.GameRound;
 import gfx.Colours;
 import gfx.Screen;
-import gfx.Sound;
 import level.Level;
 import level.tiles.Tile;
 
@@ -43,7 +42,6 @@ public abstract class Mob extends Entity{
 	public double curlive = 800;
 	protected int TileX = 0;
 	protected int TileY = 28;
-	public Sound sound;
 	
 	protected boolean freeze;
 	public int fTime;
@@ -83,7 +81,6 @@ public abstract class Mob extends Entity{
 		this.colour = color;
 		this.maxlive = HP;
 		this.curlive = this.maxlive;
-		this.sound = new Sound(sound);
 		this.reward = reward;
 		this.damage = damage;
 		

@@ -47,7 +47,6 @@ public class Game extends Canvas implements Runnable{
 	private int[] colours = new int[6*6*6];
 	
 	private Screen screen;
-	public InputHandler input;
 	
 	public MouseHandler mouse;
 	public MouseMotionHandler mouseMotion;
@@ -100,12 +99,11 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
-		input = new InputHandler(this);
-		
+				
 		mouse = new MouseHandler(this);
 		mouseMotion = new MouseMotionHandler(this);
 		
-		gameround = new GameRound("/levels/test_level_2.png","/levels/overlay.png", input, SCALE);
+		gameround = new GameRound("/levels/test_level_2.png","/levels/overlay.png", SCALE);
 		
 	
 	}

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import gfx.Colours;
 import gfx.Screen;
-import gfx.Sound;
 import level.Level;
 
 /**
@@ -19,7 +18,6 @@ public class Tower extends Entity{
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);
 	
-	Sound sound;
 	private int range = 30;
 	private double damage = 20;
 	private int price = 100;
@@ -75,7 +73,6 @@ public class Tower extends Entity{
 		range = towertype.getRange();
 		damage = towertype.getDamage();
 		Sprite = towertype.getSprite();
-		sound = new Sound(towertype.getSound());
 		colour = towertype.getColor();
 		price = towertype.getPrice();
 		effect = towertype.getEffect();
@@ -172,7 +169,7 @@ public class Tower extends Entity{
 			    //Es interessieren uns nur die Enemys, die noch nicht im Visier sind und in Reichweite sind
 				if(e.getClass() != game.entities.Tower.class && !LockedEnemys.contains(e) && IsInRange(e))
 				{		
-					  //sound.Start();
+
 					Mob tempo = (Mob) e;
 					//Wenn der Tower den Freeze-Effekt hat und der Gegne bereits eingefroren ist,
 					//wird der Gegner nicht ins Vesier genommen
