@@ -138,31 +138,29 @@ public class Level {
 			e.tick();
 			if (e.getClass() == game.entities.Enemy.class)
 			{
-				Mob test = (Mob)e;
+				Mob mob = (Mob)e;
 				
-				if(test.curlive <= 0){
+				//Wenn ein Gegner weniger/gleich 0 Lebeben hat -> entfernen (Tot)
+				if(mob.curlive <= 0){
 					rem = e;
-					gameround.setGold(test.getReward());
+					gameround.setGold(mob.getReward());
 					gameround.reduceEnemy();
 					gameround.updateOverlay();
 				}
-				else if (e.getClass() == game.entities.Enemy.class)
-				{
-					Enemy test2 = (Enemy)e;
-					// Wurde das Ziel von einem Enemy erreicht?
-					if(test2.reachedEnd==true){
-						rem = e;
-						gameround.reduceEnemy();
-						gameround.reduceLife(test2.getDamage());
-						gameround.updateOverlay();
-					}
-					
+				//Wenn ein Gegner das Ende erreicht hat -> entfernen und Leben abziehen
+				if(((Enemy)mob).reachedEnd){
+					rem = e;
+					gameround.reduceEnemy();
+					gameround.reduceLife(mob.getDamage());
+					gameround.updateOverlay();
 				}
+				
 			}
 		}
+		// Wenn ein Gegner tot ist oder das Ende erreicht hat, wird es aus der Gegnerliste entfernt
 		if(rem != null)
 		{
-			Mob temp = (Mob)rem;
+			//Mob temp = (Mob)rem;
 			//temp.sound.Start();
 			//temp.sound.Stop();
 			entities.remove(rem);
