@@ -4,7 +4,7 @@ package level;
  * Diese Klasse beinhaltet das Overlay, also den oberen Teil des Fensters. Hier sind 
  * Informationen wie Gold, Leben , Wave und die Tower, welche man bauen kann, zu sehen
  * 
- * @author Marko Susic
+ * @author Martin Preuﬂer
  * @version 1.0
  */
 import game.entities.Entity;
@@ -126,16 +126,8 @@ public class Overlay {
 	 * Zeichnet alle Tiles des Overlays
 	 */
 	
-	public void renderTiles(Screen screen, int xOffset, int yOffset){
-		/*if(xOffset<0) xOffset =0;
-		if(xOffset>((width<<3)-screen.width)) xOffset = ((width<<3)-screen.width);
-		if(yOffset<0) yOffset =0;
-		if(yOffset>((height<<3)-screen.height)) yOffset = ((height<<3)-screen.height);
-		*/
-		xOffset = 0;
-		yOffset = 0; 
-		screen.setOffset(xOffset,yOffset); 
-		
+	public void renderTiles(Screen screen){
+
 		for(int y = 0; y < height;y++){
 			for(int x = 0; x < width;x++){
 				getTile(x,y).render(screen,this,x<<3,y<<3);
@@ -148,11 +140,13 @@ public class Overlay {
 	 * 
 	 * Zeichnet ein Tile des Overlays
 	 */
-	public void render(Screen screen, int xOffset, int yOffset)
+	public void render(Screen screen)
 	{
-		renderTiles(screen, xOffset, yOffset);
+		//Offset auf 0,0 setzten damit Overlay oben Links gezeichnet wird
+		screen.setOffset(0, 0);
+		//Verschiedenen Sachen des Overlays rendern
+		renderTiles(screen);
 		renderTowertypes(screen);
-		//renderEntities(screen);
 		renderStats(screen);
 	}
 	

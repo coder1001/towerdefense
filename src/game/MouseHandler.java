@@ -2,7 +2,12 @@ package game;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+/**
+ * In der Klasse MouseHandler werden Mausaktionen ( Mausklicks) abgefangen und verarbeitet
+ * 
+ * @author Kai Flöck
+ * @version 1.0
+*/
 public class MouseHandler implements MouseListener{
 
 	
@@ -30,7 +35,9 @@ public class MouseHandler implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+/**
+ * Mausklick an Gameround weiterleiten
+ */
 	public void mousePressed(MouseEvent e) {
 	    mGame.gameround.OnMouseClick(e);
 	  }

@@ -171,13 +171,12 @@ public class Level {
 	 * 
 	 * Zeichnet alle Tiles des Levels
 	 */
-	public void renderTiles(Screen screen, int xOffset, int yOffset){
-		if(xOffset<0) xOffset =0;
-		if(xOffset>((width<<3)-screen.width)) xOffset = ((width<<3)-screen.width);
-		if(yOffset<0) yOffset =0;
-		if(yOffset>((height<<3)-screen.height)) yOffset = ((height<<3)-screen.height);
+	public void renderTiles(Screen screen){
 		
-		screen.setOffset(xOffset,yOffset);
+		
+		//Verschiebung des Levels nach unten berechnen (unter das Overlay)
+		int yOffset = ((height<<3)-screen.height);		
+		screen.setOffset(0,yOffset);
 		
 		for(int y = 0; y < height;y++){
 			for(int x = 0; x < width;x++){

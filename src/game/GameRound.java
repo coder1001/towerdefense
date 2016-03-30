@@ -207,10 +207,9 @@ public class GameRound {
 	 * @author Kai Flöck
 	 */
 	public void renderTiles(Screen screen){
-		int xOffset = screen.width/2;
-		int yOffset = screen.height/2;
-		overlay.render(screen, 0, 0);
-		level.renderTiles(screen,  xOffset, yOffset);
+
+		overlay.render(screen);
+		level.renderTiles(screen);
 		
 	}
 	

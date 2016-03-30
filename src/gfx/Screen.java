@@ -176,7 +176,7 @@ public class Screen {
 	 * Dadurch wäre es möglich, in dem bestehenden Screen nur einen Teil des Levels zu sehen und
 	 * durch Maus/TastatureEingaben sich im Level zu bewegen.
 	 * 
-	 * @param xOffset
+	 * @param x
 	 * @param yOffset
 	 */
 	public void setOffset(int xOffset, int yOffset) {
