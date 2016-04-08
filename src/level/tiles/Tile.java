@@ -12,7 +12,7 @@ import gfx.Screen;
  * @author Marko Susic
  * @version 1.0
  */ 
-public abstract class Tile {
+public abstract class Tile implements ITile {
 	
 	// Die ersten 8 Zeilen im Spritesheet sind für Tiles vorgesehen (8x32=256)
 	public static final Tile[] tiles = new Tile[256];

@@ -6,7 +6,7 @@ package gfx;
  * @author Marko Susic
  * @version 1.0
  */
-public class Screen {
+public class Screen implements IScreen{
 	public static final int MAP_WIDTH = 64;
 	public static final int MAP_WIDTH_MASK = MAP_WIDTH-1;
 	

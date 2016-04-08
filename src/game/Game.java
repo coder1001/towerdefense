@@ -27,7 +27,7 @@ import javax.swing.JFrame;
  * @author Kai Flöck
  * @version 1.0
 */
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable, IGame{
 
 	
 	private static final long serialVersionUID = 1L;
@@ -99,7 +99,7 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/sprite_sheet.png"));
-				
+		
 		mouse = new MouseHandler(this);
 		mouseMotion = new MouseMotionHandler(this);
 		

@@ -4,7 +4,7 @@ package level;
  * Diese Klasse beinhaltet das Overlay, also den oberen Teil des Fensters. Hier sind 
  * Informationen wie Gold, Leben , Wave und die Tower, welche man bauen kann, zu sehen
  * 
- * @author Martin Preuﬂer
+ * @author Martin 
  * @version 1.0
  */
 import game.entities.Entity;
@@ -28,7 +28,7 @@ import javax.imageio.ImageIO;
 
 import level.tiles.Tile;
 
-public class Overlay {
+public class Overlay implements IOverlay {
 	private byte[] tiles;
 	public int width;
 	public int height;

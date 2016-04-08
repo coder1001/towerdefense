@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
  * @version 1.0
  */
 
-public class SpriteSheet {
+public class SpriteSheet implements ISpriteSheet{
 	public String path;
 	public int width;
 	public int height;

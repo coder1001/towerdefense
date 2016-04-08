@@ -8,9 +8,9 @@ package gfx;
  * @version 1.0
  */
 
-public class FontForGame implements IFontForGame{
+public interface IFontForGame {
 	// String mit allen im Spiel verfügbaren Zeichen
-	private static String chars=""+"ABCDEFGHIJKLMNOPQRSTUVWXYZ      "+"0123456789.,:;'\"!?$%()-=+/      ";
+	static String chars=""+"ABCDEFGHIJKLMNOPQRSTUVWXYZ      "+"0123456789.,:;'\"!?$%()-=+/      ";
 	
 	/**
 	 * Schreibt eine Textnachricht auf den Bildschirm

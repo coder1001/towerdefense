@@ -21,7 +21,7 @@ import level.tiles.Tile;
  * @author Kai Flöck
  * @version 1.0
  */
-public class GameRound {
+public class GameRound implements IGameRound {
 
 	
 	// Constants

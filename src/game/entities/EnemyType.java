@@ -10,7 +10,7 @@ package game.entities;
  * @version 1.0
  */ 
 
-public class EnemyType {
+public class EnemyType implements IEnemyType{
 
 	private String mName;
 	private int mHP;

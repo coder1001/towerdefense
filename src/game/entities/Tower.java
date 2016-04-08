@@ -13,7 +13,7 @@ import level.Level;
  * @author Martin
  *
  */
-public class Tower extends Entity{
+public class Tower extends Entity implements ITower{
 	
 	protected int scale = 1;	
 	private int colour = Colours.get(-1,111,500, 543); //black , darkgrey, lightgrey, white 543 -1,111,421, 543);

@@ -11,7 +11,7 @@ import level.tiles.Tile;
  * @author Martin
  *
  */
-public class Enemy extends Mob{
+public class Enemy extends Mob implements IEnemy{
 
 	
 	public boolean reachedEnd = false;

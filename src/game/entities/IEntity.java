@@ -12,23 +12,20 @@ import level.Level;
  * @version 1.0
  */ 
 
-public abstract class Entity implements IEntity{
-	public int x,y;
-	protected Level level;
+public interface IEntity {
 	
-	/**
-	 * Konstruktor, welcher ein neues Entity erstellt und das Level zuweist
-	 * 
-	 * @param level
-	 */
-	public Entity(Level level){
-		this.level = level;
-	}	
 
 	/**
 	 * Tick muss von jeder abgeleiteten Klasse implementiert werden
 	 * Die Berechnungen sollen hierdrin statt finden
 	 * 
 	 */
+	public void tick();
 	
+	/**
+	 * Render muss von jeder abgeleiteten Klasse implementiert werden
+	 * Die Zeichnungen werden hierdrin ausgeführt
+	 * @param screen
+	 */
+	public void render(Screen screen);
 }

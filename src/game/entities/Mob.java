@@ -15,7 +15,7 @@ import level.tiles.Tile;
  */ 
 
 
-public abstract class Mob extends Entity{
+public abstract class Mob extends Entity implements IMob{
 	
 	//Richtungen
 	public static final int MOVE_TOP = 0;

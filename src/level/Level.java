@@ -25,7 +25,7 @@ import level.tiles.Tile;
  * @author Marko Susic
  * @version 1.0
  */
-public class Level {
+public class Level implements ILevel {
 	private byte[] tiles;
 	public int width;
 	public int height;

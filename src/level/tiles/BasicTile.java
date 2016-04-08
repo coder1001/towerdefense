@@ -11,7 +11,7 @@ import level.Overlay;
  * @version 1.0
  */
 
-public class BasicTile extends Tile{
+public class BasicTile extends Tile implements IBasicTile{
 
 	protected int tileId;
 	protected int tileColour;

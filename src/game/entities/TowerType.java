@@ -9,7 +9,7 @@ import gfx.Screen;
  * @author Martin
  *
  */
-public class TowerType {
+public class TowerType implements ITowerType{
 
 	private int posx;
 	private int posy;

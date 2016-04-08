@@ -7,7 +7,7 @@ package level.tiles;
  * @version 1.0
  */
 
-public class BasicSolidTile extends BasicTile{
+public class BasicSolidTile extends BasicTile implements IBasicSolidTile{
 
 	public BasicSolidTile(int id, int x, int y, int tileColour, int levelColour) {
 		super(id, x, y, tileColour, levelColour);

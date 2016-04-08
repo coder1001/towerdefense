@@ -6,7 +6,7 @@ package gfx;
  * @author Marko Susic
  * @version 1.0
  */
-public class Colours implements IColours{
+public interface IColours {
 	
 	/**
 	 * Packt alle 4 Farben in eine Zahl
